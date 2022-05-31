@@ -2,7 +2,7 @@
 
 Onder web development verstaan we het aanmaken van files die content zal beschikbaar stellen aan de gebruiker en interactie mogelijk zal maken.
 We onderscheiden hier **Front-end** webdevelopment en **Back-end** webdevelopment.
-<!--
+
 ![image](./images/afbeelding1.png)
 
 **Front-end web development**
@@ -210,7 +210,6 @@ myArray[10]='hi';       // Voegt een nieuw item toe op positie 10 maar zal ook t
 myArray.push('Test');    // Zal een nieuw item achteraan de array toevoegen.
 myArray.pop();           // Zal het laatste item van de array verwijderen
 ```
-
 ### Logische operatoren
 
 We kunnen in javascript de gekende logische operatoren gebruiken om condities te  bouwen:
@@ -470,7 +469,7 @@ Je zou bv op basis van dit voorbeeld een webinterface kunnen maken voor een IoT-
 
 We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. javascript en html.
 
-![download](./images/afbeelding1.png)
+![download](./images/afbeelding2.png)
 
 Je kan de files van dit voorbeeld [hier](/files/formvalidation.rar) downloaden.
 
@@ -539,7 +538,7 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 JSON is een formaat om op eenvoudige en compacte manier data te kunnen uitwisselen. Er zijn 2 structuren, objecten te herkennen aan {} en array’s te herkennen aan [].
 
-![download](./images/afbeelding12.png)
+![download](./images/afbeelding3.png)
 
 ```json
 {
@@ -578,7 +577,7 @@ console.log(JSON.stringify({ x: 5, y: 6 }));
 AJAX is een techniek om je webpagina te updaten zonder dat de volledige pagina opnieuw moet worden geladen.
 Het is Google die deze techniek heeft geïntroduceerd in hun zoekmachine (als je in google iets begint te type worden suggesties gegeven).
 
-![download](./images/afbeelding11.gif)
+![download](./images/afbeelding4.gif)
 
 Aanvankelijk werd hiervoor HTMLXMLRequest gebruikt, het grote nadeel was dat je voor elke browser een andere code nodig had.
 Enige tijd late werd **JQuery** ontwikkeld waarmee je uniforme code kon schrijven en JQuery ging in de achtergrond dan het probleem van de verschillende browsers aanpakken.
@@ -678,4 +677,3 @@ Het vinden van een API kan lastig zijn. Alle grote web applicaties zoals Youtube
 Maak de oefening op het elektronisch leerplatform en laad die op.
 
 :::
--->
