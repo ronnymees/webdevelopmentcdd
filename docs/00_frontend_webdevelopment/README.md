@@ -69,24 +69,11 @@ console.log('Resultaat : ' + totaal);
 Soms is de fout wat complexer en moeten we debuggen.
 Bekijk even de informatie op de [developer pagina van Chrome](https://developer.chrome.com/docs/devtools/javascript/)
 
-
-
-
-
-Laten we even de fouten uit volgend project halen...
-
-
-
-
-
-
-
-
-### Oefening
+### Oefeningen
 
 ::: tip Online scripts implementeren
 
-Maak de oefening op het elektronisch leerplatform en laad die op.
+Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 :::
 
@@ -132,6 +119,8 @@ Als je in javascript andere javascripts gebruikt moet je die voor jou script lin
 :::
 
 ### Variabelen
+
+Een variabele is een container of doos waarin je informatie kan bewaren.
 
 In javascript zijn variabelen 'loosely typed', wat wil zeggen dat het datatype afhankelijk is van wat je in de variabele stopt. Je kan dus perfect het ene moment een integer in een variabele hebben en enkele ogenblikken later een string in diezelfde variabele hebben.
 
@@ -265,7 +254,7 @@ Daarnaast hebben we ook de ternary operator:
 
 ### Oefening
 
-::: tip Oefenen met variabelen, array, object en operaties
+::: tip Oefenen met variabelen en operaties
 
 Maak de oefening op het elektronisch leerplatform en laad die op.
 
@@ -426,7 +415,7 @@ Om in javascript elementen van een html pagina op te vragen bestaan er enkele mo
 
 ### Oefening
 
-::: tip Oefenen met controle structuren, loops en functies
+::: tip Oefenen met controle structuren en functies
 
 Maak de oefening op het elektronisch leerplatform en laad die op.
 
@@ -435,6 +424,8 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 ## Week 4 - Javascript voor grafische designers
 
 Web designers maken gebruik van Javascript om hun webpagina's visueel aantrekkelijker en gebruiksvriendelijker te maken terwijl een web developer eerder javascript zal gebruiken om zaken in de achtergrond te regelen zoals bv. het binnen halen van data en toevoegen aan een tabel.
+
+Zoals je de voorbije weken zelf hebt kunnen vaststellen is het zelf schrijven van scripts niet zo voor de hand liggend. Toch is het belangrijk dat je als Web designer die Javascript taal begrijpt. Zo kan je leuke scripts die je online aantreft kan analyseren, begrijpen hoe die werken en die vervolgens, eventueel mits wat aanpassingen, implementeren in jou project.
 
 Laten we even enkele voorbeelden bekijken:
 
