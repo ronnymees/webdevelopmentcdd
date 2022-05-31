@@ -1,0 +1,26 @@
+{
+  "name": "webdevelopment_cdd",
+  "version": "0.0.1",
+  "description": "Cursus Webdevelopment Creative Digital Design",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "authors": {
+    "name": "Ronny Mees",
+    "email": "ronny.mees@vives.be"
+  },
+  "repository": "https://github.com/ronnymees/webdevelopmentcdd/webdevelopment_cdd",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "vuepress": "^1.5.3",
+    "vuepress-plugin-zooming": "^1.1.8"
+  },
+  "dependencies": {
+    "@dovyp/vuepress-plugin-clipboard-copy": "^1.0.0-alpha.7"
+  }
+}

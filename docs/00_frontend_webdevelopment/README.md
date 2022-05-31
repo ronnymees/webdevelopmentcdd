@@ -2,8 +2,8 @@
 
 Onder web development verstaan we het aanmaken van files die content zal beschikbaar stellen aan de gebruiker en interactie mogelijk zal maken.
 We onderscheiden hier **Front-end** webdevelopment en **Back-end** webdevelopment.
-
-![image](./images/afbeelding1.png) 
+<!--
+![image](./images/afbeelding1.png)
 
 **Front-end web development**
 
@@ -678,3 +678,4 @@ Het vinden van een API kan lastig zijn. Alle grote web applicaties zoals Youtube
 Maak de oefening op het elektronisch leerplatform en laad die op.
 
 :::
+-->
