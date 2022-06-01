@@ -1,4 +1,4 @@
-# Frontend webdevelopment met Javascript
+# Front-end webdevelopment met Javascript
 
 Onder web development verstaan we het aanmaken van files die content zal beschikbaar stellen aan de gebruiker en interactie mogelijk zal maken.
 We onderscheiden hier **Front-end** webdevelopment en **Back-end** webdevelopment.
@@ -28,7 +28,7 @@ We maken gebruik van Visual Studio Code om onze projecten in te bouwen.
 Als dit nog niet op jou systeem geïnstalleerd staat, ga dan naar [de website van Visual Studio Code](https://code.visualstudio.com/) en download er de versie voor jou systeem.
 Tijdens de installatie zorg je ervoor dat volgende 2 opties aangevinked staan:
 
-![download](./images/afbeelding0.png)
+![image](./images/afbeelding0.png)
 
 Na installatie voeg je ook de **live server extensie** toe.
 Bekijk [de gebruikersgids van Visual Studio Code](https://code.visualstudio.com/docs/editor/extension-marketplace) voor meer informatie hoe je dit moet doen.
@@ -90,7 +90,7 @@ Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 ### Take-home opdracht
 
-::: tip Herhaling Javascript
+::: tip Voorbereiding volgende les
 
 Als voorbereiding op de leerstof van volgende week volg je onderstaande videotutorial:
 
@@ -272,7 +272,7 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 ### Take-home opdracht
 
-::: tip Herhaling Javascript
+::: tip Voorbereiding volgende les
 
 Als voorbereiding op de leerstof van volgende week volg je onderstaande videotutorial:
 
@@ -457,7 +457,7 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 ### Take-home opdracht
 
-::: tip Herhaling Javascript
+::: tip Voorbereiding volgende les
 
 Als voorbereiding op de leerstof van volgende week volg je onderstaande videotutorial:
 
@@ -476,7 +476,7 @@ Ter ondersteuning van deze leerstof raden we je aan om volgende bronnen te raadp
 
 We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. javascript en html.
 
-![download](./images/afbeelding2.png)
+![image](./images/afbeelding2.png)
 
 Je kan de files van dit voorbeeld [hier](/files/formvalidation.rar) downloaden.
 
@@ -541,11 +541,11 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 ### JavaScript Object Notation (JSON)
 
-![download](./images/jsonicon.png) 
+![image](./images/jsonicon.png) 
 
 JSON is een formaat om op eenvoudige en compacte manier data te kunnen uitwisselen. Er zijn 2 structuren, objecten te herkennen aan {} en array’s te herkennen aan [].
 
-![download](./images/afbeelding3.png)
+![image](./images/afbeelding3.png)
 
 ```json
 {
@@ -592,7 +592,7 @@ console.log(JSON.stringify({ x: 5, y: 6 }));
 AJAX is een techniek om je webpagina te updaten zonder dat de volledige pagina opnieuw moet worden geladen.
 Het is Google die deze techniek heeft geïntroduceerd in hun zoekmachine (als je in google iets begint te type worden suggesties gegeven).
 
-![download](./images/afbeelding4.gif)
+![image](./images/afbeelding4.gif)
 
 Aanvankelijk werd hiervoor HTMLXMLRequest gebruikt, het grote nadeel was dat je voor elke browser een andere code nodig had.
 Enige tijd late werd **JQuery** ontwikkeld waarmee je uniforme code kon schrijven en JQuery ging in de achtergrond dan het probleem van de verschillende browsers aanpakken.
