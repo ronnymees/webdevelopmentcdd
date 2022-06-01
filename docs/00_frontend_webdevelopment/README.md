@@ -561,7 +561,7 @@ JSON is een formaat om op eenvoudige en compacte manier data te kunnen uitwissel
 }
 ```
 
-Om een JSON string om te zetten naar een JSON object gebruik je de .parse() methode. 
+Om een JSON string om te zetten naar een JSON object gebruik je de `.parse()` methode. 
 
 Test dit even uit in de console:
 ```js
@@ -569,15 +569,23 @@ const json = '{"result":true, "count":42}';
 const obj = JSON.parse(json);
 ```
 
-**Merk op** dat bij een combinatie van “, je hier best de buitenste aanpast naar ‘.
+**Merk op** dat bij een combinatie van meerdere `“` je hier best de buitenste aanpast naar `‘`.
 
-Om een JSON object om te zetten naar een string gebruik je de .stringify() methode.
+Om een JSON object om te zetten naar een string gebruik je de `.stringify()` methode.
 
 Test dit even uit in de console:
 ```js
 console.log(JSON.stringify({ x: 5, y: 6 }));
 // expected output: "{"x":5,"y":6}"
 ```
+
+::: tip oefening
+* Maak nu eens zelf een JSON string met de voornaam, naam en leeftijd van 3 studenten.
+* Per student is telkens de score van 5 vakken aanwezig.
+* Plaats de JSON string in een variabele en maak er dan een JSON object variabele van.
+* Log het object naar de console.
+* Maak er terug een JSON string van en log dit eveneens naar de console.
+:::
 
 ### Asynchronous Javascript And XML (AJAX)
 
@@ -596,7 +604,7 @@ Je kan [hier](https://www.w3schools.com/jquery/jquery_intro.asp) meer info over 
 Onthou vooral dat als je **een $-teken** in Javascript ziet staan dan heb je te maken met JQuery.
 
 ::: tip
-Jquery moet eerst geladen zijn voor je de javascript laadt andersom zal de javascript die $ verwijzing niet begrijpen.
+Jquery moet eerst geladen zijn voor je de javascript laadt, andersom zal Javascript die $ verwijzing niet begrijpen.
 :::
 
 Het probleem van code in een browser is dat deze rechtlijnig werkt en nergens kan halthouden. Moest je via Javascript code proberen te laten wachten op iets dan zou de browser denken dat de pagina blijft “hangen” en deze dus onderbreken.
@@ -623,9 +631,9 @@ $(document).ready(function(){
   });
 ```
 
-**$.get(url, callback functie)**: De url zal dus bevraagd worden, pas als er antwoord komt zal de callback functie worden uitgevoerd.
+`$.get(url, callback functie)`: De url zal dus bevraagd worden, pas als er antwoord komt zal de callback functie worden uitgevoerd.
 
-**Httpbin.org** is dummy server waar je de respons kunt meegeven en terugkrijgt, is om te testen
+`Httpbin.org` is dummy server waar je de respons kunt meegeven en terugkrijgt, is om te testen
 
 Het grootste probleem hierbij is als je een callback functie in een andere callback functie gebruikt is error afhandeling bijzonder moeilijk.
 
@@ -639,9 +647,9 @@ function getData() {
 		JSON.stringify(response.args);  });
 };
 ```
-De fetch API is ingebouwd in de browser en werkt via promises. Op het einde van een ketting van .then() is er een .catch() om de errorafhandeling te doen.
+De fetch API is ingebouwd in de browser en werkt via promises. Op het einde van een ketting van `.then()` is er een `.catch()` om de errorafhandeling te doen.
 
-De response komt al vanaf de eerste data die de server teruggestuurd, daarom moeten we response.json() gebruiken om alle response te verzamelen.
+De response komt al vanaf de eerste data die de server teruggestuurd, daarom moeten we `response.json()` gebruiken om alle response te verzamelen.
 
 #### Een async/await voorbeeld
 
@@ -655,15 +663,17 @@ document.getElementById('get').addEventListener('click', getData);
 };
 ```
 
-Je merkt dat via deze techniek de code veel leesbaarder lijkt en eerder trekt op gewone code zoals bij c# (code regel per code regel)
+Je merkt dat via deze techniek de code veel leesbaarder lijkt.
 
 De functie zal bij elke Await de code verlaten en later op dat punt dan verder doen als de info beschikbaar is.
 
-**Let op**: Deze techniek werkt niet bij oude browsers!
+::: danger Let op
+Deze techniek werkt niet bij oude browsers!
+:::
 
 ### Web API
 
-Een Application Programming Interface is een software service dat een set aan functies online beschikbaar stelt voor anderen.
+Een **A**pplication **P**rogramming **I**nterface is een software service dat een set aan functies online beschikbaar stelt voor anderen.
 
 Zoals bv:
 * lezen en opzoeken van data
@@ -675,7 +685,9 @@ Zoals bv:
 
 Het vinden van een API kan lastig zijn. Alle grote web applicaties zoals Youtube, Google Maps, Dropbox, Twitter, ... hebben er een, maar er zijn ook ontelbare kleine specifieke API's die je ofwel doorkrijgt van een fabrikant of eventueel kan opzoeken via [rapidapi.com](https://rapidapi.com/marketplace).
 
-**Let op:** Niet alle API's zijn zomaar gratis!
+::: danger Let op
+Niet alle API's zijn zomaar gratis!
+:::
 
 ### Oefening
 
