@@ -22,6 +22,17 @@ We onderscheiden hier:
 * Een **PHP** bestand die zorgt voor het genereren van HTML, CSS en JS bestanden die dan aan de browser kunnen aangeleverd worden.
 * Een **Database** bv MYSQL die er voor zorgt dat data bewaard en geraadpleegd kan worden.
 
+## Installatie software
+
+We maken gebruik van Visual Studio Code om onze projecten in te bouwen.
+Als dit nog niet op jou systeem geïnstalleerd staat, ga dan naar [de website van Visual Studio Code](https://code.visualstudio.com/) en download er de versie voor jou systeem.
+Tijdens de installatie zorg je ervoor dat volgende 2 opties aangevinked staan:
+
+![download](./images/afbeelding0.png)
+
+Na installatie voeg je ook de **live server extensie** toe.
+Bekijk [de gebruikersgids van Visual Studio Code](https://code.visualstudio.com/docs/editor/extension-marketplace) voor meer informatie hoe je dit moet doen.
+
 ## Week 1 - Experimenteren met Javascript
 
 [Hier](/files/cheatsheet_js.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
@@ -461,10 +472,6 @@ Ter ondersteuning van deze leerstof raden we je aan om volgende bronnen te raadp
 * [Form validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
 * [HTML5 input types](https://developer.mozilla.org/en-US/docs/Learn/Forms/HTML5_input_types)
 
-We gaan in dit voorbeeld een stapje verder en combineren HTML, CSS en JAVASCRIPT met Node-red en Google Mail.
-
-Je zou bv op basis van dit voorbeeld een webinterface kunnen maken voor een IoT-device.
-
 ### Form validatie via javascript
 
 We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. javascript en html.
@@ -514,7 +521,7 @@ Je merkt dat we eerst alle input van de gebruiker gaan bewaren in variabelen. Da
 
 Om het email-adres te valideren maken we gebruik van een reguliere expressie.
 
-Je kan meer informatie hierover lezen op [mozilla developer](https://developer.mozilla.org/nl/docs/Web/JavaScript/Guide/Reguliere_Expressies).
+Je kan meer informatie hierover lezen op [mozilla developer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
 
 Een handige tool om die reguliere expressies te ontleden is [regexper](https://regexper.com/#%2F%5Ethis%5C.%2F).
 
