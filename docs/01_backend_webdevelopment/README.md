@@ -567,7 +567,7 @@ De techniek hierboven met het gebruik van `global` zal zelden gebruikt worden, m
 
 ### Oefeningen
 
-::: tip ?????
+::: tip Vertrouwd raken met PHP
 
 Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
