@@ -24,6 +24,8 @@ PHP is een **Server-side** scripttaal gebruikt om een webpagina dynamisch te mak
 
 Voor we van start gaan, nog even meegeven dat je ook veel informatie op de [php.net](https://www.php.net/manual/en/) website kan terugvinden.
 
+[Hier](/files/cheatsheet_php.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
+
 ### Inleiding
 
 Net zoals bij Javascript start PHP met een opening tag en eindigt het met een closing tag. Ook wordt elke coderegel beëindigd met een `;`.
@@ -583,3 +585,141 @@ Als voorbereiding op de leerstof van volgende week volg je onderstaande videotut
 
 :::
 
+## Week 2 - PHP en MySQL
+
+![image](./images/mysql.png)
+
+[Hier](/files/cheatsheet_sql.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
+
+### Opfrissen van SQL
+
+::: tip 
+Voor deze cursus moet je geen SQL-statements zelf kunnen samenstellen. Je zal deze voor de oefeningen en taken krijgen, ik verwacht wel dat je begrijpt wat het statement doet.
+:::
+
+Laten we eerst even enkele SQL-statements bekijken om terug vertrouwd te raken met databanken.
+
+```sql
+SELECT KLANTNAAM
+FROM KLANT
+WHERE PLAATS = 'Brugge'
+OR PLAATS = 'Oostende;
+```
+ Geef de naam van de klanten die in Brugge of in Oostende wonen.
+
+```sql
+SELECT AUTEUR_ID
+FROM BOEKEN
+GROUP BY AUTEUR_ID
+HAVING MAX(JAAR) = 1996;
+```
+Geef de auteur_id van de auteur die voor het laatst in 1996 een boek heeft uitgegeven.
+
+```sql
+SELECT NAAM, TITEL, CATEGORIE, UITGEVER
+FROM BOEKEN B INNER JOIN AUTEUR A ON B.AUTEUR_ID = A.AUTEUR_ID
+INNER JOIN CATEGORIE C ON B.CAT_ID = C.CAT_ID
+INNER JOIN UITGEVER U ON B.UITG_ID = U.UITG_ID;
+```
+Geef van al de boeken de naam van de auteur, de titel van het boek, de categorie waartoe het boek behoort en de naam van de uitgever.
+
+#### Een oefendatabase aanmaken en CRUD testen
+
+We starten met de aanmaak van een database en een gebruiker. Je kan dit in jou favarite tool doen zoals **mySQL Workbench** of **phpMyAdmin**.
+
+```sql
+CREATE DATABASE globe_bank;
+USE globe_bank;
+CREATE USER 'webuser'@'localhost' IDENTIFIED BY "secretpassword";
+GRANT ALL ON globe_bank.* TO 'webuser'@'localhost’;
+```
+
+Vervolgens maken we een tabel, ook schema genoemd, aan.
+
+```sql
+CREATE TABLE subjects (id INT(11) NOT NULL AUTO_INCREMENT,
+menu_name VARCHAR(255),
+position INT(3),
+visible TINYINT(1),
+PRIMARY KEY (id)
+);
+```
+
+De meest voor de hand liggende interacties met een database zullen **C**reate, **R**ead, **U**pdate en **D**elete query's zijn. Hier zal vaak verwezen worden naar **CRUD** query's.
+
+Laten we even enkele CRUD query's uitvoeren op onze tabel:
+
+```sql
+/* Create */
+INSERT INTO subjects(menu_name, position, visible) VALUES ('About global bank', 1 , 1);
+INSERT INTO subjects(menu_name, position, visible) VALUES ('Payments', 2 , 1);
+INSERT INTO subjects(menu_name, position, visible) VALUES ('Loans', 3 , 1);
+INSERT INTO subjects(menu_name, position, visible) VALUES ('Contact', 4 , 1);
+/* Read */
+SELECT * FROM subjects WHERE id=2;
+/* Update */
+UPDATE subjects SET position='3', visible='0' WHERE id=2;
+/* Delete */
+DELETE FROM subjects WHERE id=4 LIMIT 1;
+```
+:::tip Tip
+Voeg bij een delete steeds `LIMIT 1` toe aan de query. Zo kan max 1 record gewist worden, zo vermijd je dat je volledig tabel gewist wordt door een foutieve query.
+:::
+
+### Basis interactie met een database vanuit PHP
+
+Een typische interactie met een database vanuit PHP ziet er als volgt uit:
+
+1. Connecteren met de database
+2. Een query (sql-statement) uitvoeren op de database
+3. De ontvangen resultaten gebruiken
+4. De ontvangen resultaten loslaten
+5. De verbinding met de database afsluiten
+
+```php
+<?php
+    // de database login gegevens
+    $dbhost = 'localhost';
+    $dbuser = 'webuser';
+    $dbpass = 'secretpassword';
+    $dbname = 'globe_bank';
+
+    // 1. Verbinden met de database
+    $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+    // 2. Een query uitvoeren
+    $query = "SELECT * FROM subjects";
+    $result_set = mysqli_query($connection, $query);
+
+    // 3. De ontvangen resultaten gebruiken
+    while($subject = mysqli_fetch_assoc($result_set)) {
+      echo $subject["menu_name"] . "<br />";
+    }
+
+    // 4. De ontvangen resultaten loslaten
+    mysqli_free_result($result_set);
+
+    // 5. De verbinding met de database afsluiten
+    mysqli_close($connection);
+?>
+```
+
+Je kan ook de ontvangen data in een JSON formaat plaatsen.
+
+```php
+// De query uitvoeren
+$query = "SELECT * FROM subjects";
+$result_set = mysqli_query($connection, $query);
+// De data in een associatieve array plaatsen
+$data=mysqli_fetch_all($result_set,MYSQLI_ASSOC);
+// De data in een JSON formaat plaatsen
+echo json_encode($data);
+```
+
+### Oefeningen
+
+::: tip Afbeeldingen uit een database visualiseren
+
+Maak de oefeningen op het elektronisch leerplatform en laad die op.
+
+:::
