@@ -594,7 +594,7 @@ Als voorbereiding op de leerstof van volgende week volg je onderstaande videotut
 ### Opfrissen van SQL
 
 ::: tip 
-Voor deze cursus moet je geen SQL-statements zelf kunnen samenstellen. Je zal deze voor de oefeningen en taken krijgen, ik verwacht wel dat je begrijpt wat het statement doet.
+Voor deze cursus moet je geen SQL-statements volledig zelf kunnen samenstellen. Je zal deze voor de oefeningen en taken krijgen, ik verwacht wel dat je begrijpt wat het statement doet en indien nodig kleine aanpassingen kan maken.
 :::
 
 Laten we eerst even enkele SQL-statements bekijken om terug vertrouwd te raken met databanken.
@@ -605,7 +605,7 @@ FROM KLANT
 WHERE PLAATS = 'Brugge'
 OR PLAATS = 'Oostende;
 ```
- Geef de naam van de klanten die in Brugge of in Oostende wonen.
+ Geeft de naam van de klanten die in Brugge of in Oostende wonen.
 
 ```sql
 SELECT AUTEUR_ID
@@ -613,7 +613,7 @@ FROM BOEKEN
 GROUP BY AUTEUR_ID
 HAVING MAX(JAAR) = 1996;
 ```
-Geef de auteur_id van de auteur die voor het laatst in 1996 een boek heeft uitgegeven.
+Geeft de auteur_id van de auteur die voor het laatst in 1996 een boek heeft uitgegeven.
 
 ```sql
 SELECT NAAM, TITEL, CATEGORIE, UITGEVER
@@ -621,7 +621,7 @@ FROM BOEKEN B INNER JOIN AUTEUR A ON B.AUTEUR_ID = A.AUTEUR_ID
 INNER JOIN CATEGORIE C ON B.CAT_ID = C.CAT_ID
 INNER JOIN UITGEVER U ON B.UITG_ID = U.UITG_ID;
 ```
-Geef van al de boeken de naam van de auteur, de titel van het boek, de categorie waartoe het boek behoort en de naam van de uitgever.
+Geeft van al de boeken de naam van de auteur, de titel van het boek, de categorie waartoe het boek behoort en de naam van de uitgever.
 
 #### Een oefendatabase aanmaken en CRUD testen
 
@@ -723,3 +723,107 @@ echo json_encode($data);
 Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 :::
+
+## Week 3 - PHP en MySQL
+
+We gaan nog even verder met het raadplegen van data uit een database.
+
+### Filteren van data
+
+```sql
+SELECT STUDENT_ID,VOORNAAM,NAAM
+FROM STUDENT
+WHERE SCORE > 70;
+```
+Geeft ons het studentenID, naam en voornaam van de studenten met een score hoger dan 70%.
+
+De filter is hier dus `WHERE SCORE > 70`.
+
+Als we de filter willen aanpassen is het dus dit deel dat we moeten wijzigen.
+Als we dus enkel de studenten uit de campus Brugge willen zien dan moeten we het sql-statement als volgt aanpassen.
+
+```sql
+SELECT STUDENT_ID,VOORNAAM,NAAM
+FROM STUDENT
+WHERE SCORE > 70
+AND CAMPUS = 'Brugge';
+```
+
+Meestal hebben we geen behoefte aan zo'n statische filter maar moet dit een dynamisch gegeven zijn.
+Laten we hiervoor variabelen gebruiken.
+
+```php
+<?php
+    // Filter variabelen
+    $score = 70;
+    $campus = "Brugge";
+    // Sql-statement
+    $query = "SELECT STUDENT_ID,VOORNAAM,NAAM FROM STUDENT WHERE SCORE > 70 AND CAMPUS = 'Brugge';";
+?>
+```
+
+Nu moeten we die variabelen in het sql-statement krijgen, hiertoe passen we de code wat aan.
+
+```php
+<?php
+    // Filter variabelen
+    $score = 70;
+    $campus = "Brugge";
+    // Sql-statement
+    $query = "SELECT STUDENT_ID,VOORNAAM,NAAM FROM STUDENT WHERE SCORE > {$score} AND CAMPUS = '{$campus}';";
+?>
+```
+Laten we dit nu uitbreiden tot een HTTP GET Request.
+Stel dat ons bestand de naam filter.php heeft en de client tikt volgende url in `filter.php?score=60&campus='Brugge'`.
+Nu willen we die informatie gebruiken in onze filter.
+
+```php
+<?php
+    // Filter variabelen
+    $score = 70;
+    $campus = "Brugge";
+    // Is de score doorgegeven via een HTTP GET parameter?
+    if(isset($_GET["score"])){
+        $score=$_GET["score"];
+    }
+    // Is de campus doorgegeven via een HTTP GET parameter?
+    if(isset($_GET["campus"])){
+        $campus=$_GET["campus"];
+    }
+    // Sql-statement
+    $query = "SELECT STUDENT_ID,VOORNAAM,NAAM FROM STUDENT WHERE SCORE > {$score} AND CAMPUS = '{$campus}';";
+?>
+```
+
+Stel dat we de filter van de campus niet willen gebruiken dan lukt dit op die manier niet, we moeten dan onze sql-statement wat aanpassen.
+Dit kunnen we als volgt doen:
+
+```php
+<?php
+    // Filter variabelen
+    $score = 70;    
+    // Is de score doorgegeven via een HTTP GET parameter?
+    if(isset($_GET["score"])){
+        $score=$_GET["score"];
+    }
+    // Sql-statement
+    $query = "SELECT STUDENT_ID,VOORNAAM,NAAM FROM STUDENT WHERE SCORE > {$score}";
+    // Is de campus doorgegeven via een HTTP GET parameter?
+    if(isset($_GET["campus"])){
+        $campus=$_GET["campus"];
+        $query = $query . " AND CAMPUS = '{$campus}';";    
+    } else {
+        $query = $query . ";";    
+    }    
+?>
+```
+
+### Oefeningen
+
+::: tip Producten uit een database visualiseren en filteren
+
+Maak de oefeningen op het elektronisch leerplatform en laad die op.
+
+:::
+
+
