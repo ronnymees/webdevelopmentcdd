@@ -728,6 +728,14 @@ Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 We gaan nog even verder met het raadplegen van data uit een database.
 
+Eerst even uitleggen wat een **HTTP GET Request** is:
+
+* Er gebeuren geen wijzigingen op de server.
+* De data zit in de url geëncodeerd bv `http://...?a=2&b=test`
+* De browser geeft geen waarschuwing als je de pagina herlaadt en de GET dus nogmaals uitvoerd.
+* De data is dus leesbaar in de URL, bijgevolg is dit geen geschikte manier om gevoelige informatie door te sturen.
+* De lengte van een URL is beperkt, bijgevolg ook de hoeveelheid data dat je kan doorsturen.
+
 ### Filteren van data
 
 ```sql
@@ -826,4 +834,96 @@ Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 :::
 
+## Week 4 - PHP, FORMS en MySQL
 
+Laten we starten met een form aan te maken in het php bestand `mysql_form.php` die input mogelijk maakt.
+
+```php
+<form action="mysql_form.php" method="POST">
+    Menu Name: <input name="menu_name" /><br />
+    position: <input type="number" name="position" /><br />
+    visible: <input type="number" min="0" max="1" name="visible" /><br/>
+    <input type="submit" />
+</form>
+```
+Merk op dat we als actie dezelfde pagina laten oproepen met een HTTP POST Request om de ontvangen data door te geven.
+
+Om nu te weten of de pagina via een GET of een POST werd aangesproken gaan we als volgt te werk.
+
+```php
+<?php
+    // Is het een POST request?
+    if($_SERVER['REQUEST_METHOD']=='POST')
+    {
+        // Hier komt de php code om de form af te handelen...
+    }
+?>
+<!-- Input Form -->
+<form action="mysql_form.php" method="POST">
+    Menu Name: <input name="menu_name" /><br />
+    position: <input type="number" name="position" /><br />
+    visible: <input type="number" min="0" max="1" name="visible" /><br/>
+    <input type="submit" />
+</form>
+```
+
+Laten we nu stap voor stap de data verwerken.
+Verplaats `// Hier komt de php code om de form af te handelen...` door onderstaande code
+
+```php
+    // de database login gegevens
+    $dbhost = 'localhost';
+    $dbuser = 'webuser';
+    $dbpass = 'secretpassword';
+    $dbname = 'globe_bank';
+
+    // Verbinden met de database
+    $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+    // We gaan hier straks verder    
+```
+
+Nu moeten we de input gaan toevoegen aan onze database. We mogen die input niet zomaar gebruiken. Hacker zouden in een inputveld kunnen een `;` plaatsen gevolgd door een SQL statement waardoor ongewenste interactie met onze database zou kunnen onstaan. We gebruiken `mysqli_real_escape_string()` om dit risico uit te sluiten. Daarna kunnen we onze SQL statement opbouwen en uitvoeren. Vervang `// We gaan hier straks verder` door onderstaande code.
+
+```php
+  // Escapen van de inputdata  
+  $menu_name=mysqli_real_escape_string($connection,$_POST['menu_name']);
+  $position=mysqli_real_escape_string($connection,$_POST['position']);
+  $visible=mysqli_real_escape_string($connection,$_POST['visible']);
+  // Het SQL statement opbouwen
+  $insert = "INSERT INTO subjects (menu_name, position, visible) VALUES ('{$menu_name}','{$position}','{$visible}');";
+  // Het SQL statement uitvoeren
+  mysqli_query($connection,$insert);
+```
+### Paswoorden versleutelen
+
+Een gebruikersnaam en paswoord worden bij registratie bewaard in een database. Om er voor te zorgen dat een paswoord veilig bewaard is in een database moet deze versleuteld worden. Doe je dit niet dan kan een hacker eenmaal toegang gekregen tot jou database met alle gebruikersnamen en paswoorden aan de slag.
+
+::: danger Waarschuwing
+Het is bij wet verplicht om paswoorden versleuteld te bewaren. Hier staan zeer hoge boetes op!
+:::
+
+Om een paswoord te versleutelen gebruiken we een **hash-functie** deze gebruikt een algoritme (naar keuze) om het paswoord om te vormen in een niet leesbare reeks van karakters. Waarbij het eerste deel het algoritme bevat.
+
+Het is onmogelijk om vanuit de hash het paswoord te berekenen. Bij gevolg moet je het ingebrachte paswoord met het zelfde algoritme versleutelen en dan deze vergelijken met de in de database bewaarde hash.
+
+Om een paswoord te versleutelen ga je als volgt te werk
+
+```php
+$hash=password_hash($password,PASSWORD_DEFAULT);
+```
+Om een bij een login form dan het paswoord te controleren gaan we als volgt te werk
+
+```php
+if(password_verify($password_input, $hash)){
+
+}
+```
+
+### Oefeningen
+
+::: tip Registreren van een nieuw account
+
+Maak de oefeningen op het elektronisch leerplatform en laad die op.
+
+:::
