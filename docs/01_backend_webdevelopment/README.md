@@ -16,6 +16,42 @@ Installeer vervolgens met alle default waarden.
 
 <!-- TODO: uittesten en debugging extensie toevoegen -->
 
+Om een mail te kunnen versturen vanuit onze localhost moeten we enkele instellingen juist zetten.
+
+1. Een google account voorbereiden
+
+* Je maakt hiervoor best een nieuw GMail-account aan die voor ontwikkelingsdoeleinden kan gebruiken.
+* Log via een incognitovenster in op het nieuwe GMail-account.
+* Kies in je accountbeheer voor dubbele authenticatie (Zorg er voor dat je jouw gsm bij de hand hebt).
+* Kies voor App-wachtwoorden, als app kies je email en als apparaat windows computer.
+* Klik vervolgens op genereren en kopieer de toegangscode zodat je die straks kan gebruiken.
+
+2. Ga naar de folder `C:\xampp\php`, open er het bestand `php.ini` en pas volgende regels aan (gewoon de ~ verwijderen):
+
+```ini
+[mail function] 
+SMTP=smtp.gmail.com
+smtp_port=587
+sendmail_from = YourGmailId@gmail.com
+sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+```
+
+3. Ga naar de folder `C:\xampp\sendmail`, open er het bestand `sendmail.ini` en pas volgende regels aan (gewoon de ~ verwijderen):
+
+```ini
+[sendmail]
+smtp_server=smtp.gmail.com
+smtp_port=587
+error_logfile=error.log
+debug_logfile=debug.log
+auth_username=YourGmailId@gmail.com
+auth_password=Your-Gmail-app-pasword
+```
+::: warning Restart Apache server
+Je zal de apache server moeten herstarten, je kan dit via services doen.
+:::
+
+
 ## Week 1 - Introductie in PHP
 
 ![image](./images/phpicon.png)
@@ -1112,3 +1148,110 @@ Maak de oefeningen op het elektronisch leerplatform en laad die op.
 :::
 
 ## Week 6 - PHP en mail
+
+We maken gebruik van de intern voorziene mailservice van XXAMP.
+
+De basis van het sturen van een mail ziet er als volgt uit:
+
+```php
+<?php
+    $to_email = "receipient@gmail.com";
+    $subject = "Simple Email Test via PHP";
+    $body = "Hi, This is test email send by PHP Script";
+    $headers = "From: sender email";
+
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "Email successfully sent to $to_email...";
+    } else {
+        echo "Email sending failed...";
+    }
+?>
+```
+
+Test dit uit zodat je zeker bent dat je email configuratie in orde is.
+
+Laten we dit even uitbreiden met een form.
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Send mail</title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    </head>
+    <body>
+        <?php
+            // Is het een POST request?
+            if($_SERVER['REQUEST_METHOD']=='POST')
+            {
+                $to_email = "receipient@gmail.com";
+                $subject = "Simple Email Test via PHP";
+                $body = "Hi, This is test email send by PHP Script";
+                $headers = "From: sender email";
+                $result=mail($to_email, $subject, $body, $headers);
+            }
+        ?>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" id="form_container">
+                <h2>Contact Us</h2>
+                <p>Please send your message below. We will get back to you at the earliest!</p>
+                <form role="" method="post" id="reused_form">
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label for="message">
+                                Message:</label>
+                            <textarea class="form-control" type="textarea" name="message" id="message" maxlength="6000" rows="7"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label for="name">
+                                Your Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="email">
+                                Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <button type="submit" class="btn btn-lg btn-default pull-right" >Send →</button>
+                        </div>
+                    </div>
+
+                </form>
+                <?php
+                    if($result){
+                        echo "<div id='success_message' style='width:100%; height:100%; display:none; '>\n";
+                        echo "<h3>Posted your message successfully!</h3>\n"
+                        echo "</div>"
+
+                    }
+                    else {
+                        echo "<div id='errors_message' style='width:100%; height:100%; display:none; '>\n";
+                        echo "<h3>Error</h3>\n"
+                        echo "<p>Sorry there was an error sending your form.</p>"
+                        echo "</div>"
+                    }
+                ?>
+            </div>
+        </div>    
+    </body>
+</html>
+```
+
+### Oefeningen
+
+::: tip Inschrijven en uitschrijven voor nieuwsbrief
+
+Maak de oefeningen op het elektronisch leerplatform en laad die op.
+
+:::
