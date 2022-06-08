@@ -927,3 +927,188 @@ if(password_verify($password_input, $hash)){
 Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 :::
+
+## Week 5 - PHP, FORMS en MySQL
+
+Laten we even kijken hoe we een afbeelding kunnen uploaden en bewaren in een database.
+
+We starten met het aanmaken van een nieuwe database door het volgende sql-statement uit te voeren in onze MySQL tool:
+
+```sql
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL,
+  `file_path` varchar(255) NOT NULL
+);
+```
+
+Laten we nu een HTML formulier aanmaken in het bestand `index.php`:
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Upload image</title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    </head>
+    <body>
+        <form action="" method="post" enctype="multipart/form-data" class="mb-3">
+            <h3 class="text-center mb-5">Upload image</h3>
+
+            <div class="user-image mb-3 text-center">
+                <div style="width: 100px; height: 100px; overflow: hidden; background: #cccccc; margin: 0 auto">
+                <img src="..." class="figure-img img-fluid rounded" id="imgPlaceholder" alt="">
+                </div>
+            </div>
+
+            <div class="custom-file">
+                <input type="file" name="fileUpload" class="custom-file-input" id="chooseFile">
+                <label class="custom-file-label" for="chooseFile">Select file</label>
+            </div>
+
+            <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
+                Upload File
+            </button>
+        </form>
+        <script src="/scripts/script.js"></script>
+    </body>
+</html>
+```
+
+We maken gebruik van [Bootstrap](https://getbootstrap.com/docs/4.6/getting-started/download/) voor de opmaak, plaats de uitgepakte ZIP file in je projectfolder en hernoem deze folder `bootstrap`.
+
+We plaatsten als een `placeholder` voor de afbeelding met een blanko `src`. Laten we die nu visualiseren bij een upload.
+We maken hiervoor het Javascript bestand `script.js` aan:
+
+```js
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) 
+        document.getElementById("imgPlaceholder").src=e.target.result;
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+  
+document.getElementById('chooseFile').addEventListener('change',readURL(this));   
+```
+
+Een submit van deze form zal via een HTTP POST Request zichzelf terug oproepen.
+We vangen dit via PHP bovenaan de form op maken verbinding met onze database:
+
+```php
+<?php
+    // Is het een POST request?
+    if($_SERVER['REQUEST_METHOD']=='POST')
+    {
+        // de database login gegevens
+        $dbhost = 'localhost';
+        $dbuser = 'webuser';
+        $dbpass = 'secretpassword';
+        $dbname = 'images';
+        // Verbinden met de database
+        $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);        
+    }
+?>
+```
+
+Laten we eerst controleren of de afbeelding wel bestaat:
+
+```php
+if (!file_exists($_FILES["fileUpload"]["tmp_name"])) {
+    $resMessage = array(
+        "status" => "alert-danger",
+        "message" => "Select image to upload."
+    );
+}
+```
+Als we de afbeeling niet kunnen vinden dan maken we een foutmeldingsarray die we straks zullen tonen aan de gebruiker.
+
+Stel dat we enkel bestandstypes `jpg`, `jpeg` en `png` wil toelaten dan kan je de code als volgt uitbreiden:
+
+```php
+$imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+$allowd_file_ext = array("jpg", "jpeg", "png");
+
+else if (!in_array($imageExt, $allowd_file_ext)) {
+    $resMessage = array(
+        "status" => "alert-danger",
+        "message" => "Allowed file formats .jpg, .jpeg and .png."
+    );
+}
+```
+
+Om te vermijden dat grote bestanden opgeladen worden kunnen we de grootte beperken tot 2MB door de code met onderstaande aan te vullen:
+
+```php
+else if ($_FILES["fileUpload"]["size"] > 2097152) {
+    $resMessage=array(
+        "status"=> "alert-danger",
+        "message"=> "File is too large. File size should be less than 2 megabytes."
+    );
+}
+```
+
+Tot slot kunnen we nog controleren of het bestand niet al reeds is opgeladen:"
+
+```php
+else if (file_exists($target_file)) {
+    $resMessage = array(
+        "status" => "alert-danger",
+        "message" => "File already exists."
+    );
+}
+```
+
+Laten we tot slot onze afbeelding uploaden en registreren in onze database:
+
+```php
+$target_dir = "img_dir/";
+        
+$target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);        
+
+if (!file_exists($_FILES["fileUpload"]["tmp_name"])) 
+            
+         else 
+            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) 
+                // Het SQL statement opbouwen
+                $insert = "INSERT INTO images (file_path) VALUES ('$target_file')";
+                // Het SQL statement uitvoeren
+                mysqli_query($connection,$insert);
+                 if($stmt->execute())
+                    $resMessage = array(
+                        "status" => "alert-success",
+                        "message" => "Image uploaded successfully."
+                    );                 
+                 
+             else 
+                $resMessage = array(
+                    "status" => "alert-danger",
+                    "message" => "Image coudn't be uploaded."
+                );
+```
+
+Stel dat er foutmeldingen zijn moeten we die nu onder onze form tonen aan de gebruiker:
+
+```php
+<?php 
+    if(!empty($resMessage)) {
+        echo "<div class='alert {$resMessage['status']}'>\n"
+        echo "<p>{$resMessage['message']}/p>\n"
+        echo "</div>\n"
+    }
+?>
+```
+
+### Oefeningen
+
+::: tip Aanpassen accountgegevens
+
+Maak de oefeningen op het elektronisch leerplatform en laad die op.
+
+:::
+
+## Week 6 - PHP en mail

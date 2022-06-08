@@ -1,5 +1,9 @@
 # Webdevelopment
 
+![image](/files/construction.jpg)
+
+Deze cursus is nog in volle ontwikkeling en bevat momenteel mogelijk nog fouten.
+
 ## Inleiding
 
 Deze cursus is ontwikkeld voor de opleiding graduaat Creative Digital Design van de hogeschool [VIVES](https://www.vives.be/nl/industriele-wetenschappen-en-technologie/creative-digital-design).
