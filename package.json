@@ -13,7 +13,7 @@
   "repository": "https://github.com/ronnymees/webdevelopmentcdd/webdevelopment_cdd",
   "scripts": {
     "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress dev docs",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress build docs"
+    "build": "vuepress build docs"
   },
   "license": "ISC",
   "devDependencies": {
