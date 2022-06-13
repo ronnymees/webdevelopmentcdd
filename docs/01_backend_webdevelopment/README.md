@@ -625,7 +625,7 @@ Als voorbereiding op de leerstof van volgende week volg je onderstaande videotut
 
 ![image](./images/mysql.png)
 
-[Hier](/files/cheatsheet_sql.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
+[Hier](https://devhints.io/mysql) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
 
 ### Opfrissen van SQL
 
