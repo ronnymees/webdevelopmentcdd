@@ -9,10 +9,34 @@ We gebruiken hiervoor **PHP taal** die op de server zal verwerkt wordt.
 ## Installatie software
 
 Om de PHP taal lokaal te kunnen hosten hebben we Apache en PHP nodig en om data te gebruiken ook MySQL.
-Om dit operating systeem onafhankelijk te maken is er gekozen om te werken met het installatiepakket XXAMP.
+Om dit operating systeem onafhankelijk te maken is er gekozen om te werken met het installatiepakket XAMPP.
 
-Ga naar [de website van XXAMP](https://www.apachefriends.org/download.html) en download de hoogste PHP versie voor jou operating systeem.
+Ga naar [de website van XAMPP](https://www.apachefriends.org/download.html) en download de hoogste PHP versie voor jou operating systeem.
 Installeer vervolgens met alle default waarden.
+
+::: warning Installatie path
+Zorg er voor dat je installatie path `c:\xampp` is.
+:::
+
+Configuratie's kan je doen via het XAMPP controle panel.
+
+Wat als poort 80 reeds bezet is? Je kan jou Apache server ook via een andere poort laten werken.
+Ga via het XAMPP control panel naar de `httpd.conf` file en maak onderstaande aanpassingen:
+
+```conf
+Servername localhost:80 // wijzig de 80 naar bv 8000
+...
+listen 80 // wijzig ook hier de 80 naar dezeflde poort als je hierboven hebt gekozen
+```
+Om te controleren dat je Apache server en PHP goed werken kan je het volgende testbestand `phpinfo.php` aanmaken in de folder `C:\xampp\htdocs`:
+
+```php
+<?php
+    phpinfo();
+?>
+```
+Tik vervolgens in je browser `localhost[:jouw poort]/phpinfo.php`(het : met jouw poort is enkel nodig als je niet met poort 80 werkt).
+Als alles goed is krijg je nu een overzicht van PHP. 
 
 <!-- TODO: uittesten en debugging extensie toevoegen -->
 
