@@ -689,10 +689,10 @@ We starten met de aanmaak van een database en een gebruiker. Je kan dit in **php
 Je start dit op in je browser met url `localhost[:jouw poort]/phpmyadmin`
 
 ```sql
-CREATE DATABASE globe_bank;
-USE globe_bank;
+CREATE DATABASE vives;
+USE vives;
 CREATE USER 'webuser'@'localhost' IDENTIFIED BY "secretpassword";
-GRANT ALL PRIVILEGES ON globe_bank.* TO 'webuser'@'localhost';
+GRANT ALL PRIVILEGES ON vives.* TO 'webuser'@'localhost';
 ```
 
 Vervolgens maken we een tabel, ook schema genoemd, aan.
@@ -712,7 +712,7 @@ Laten we even enkele CRUD query's uitvoeren op onze tabel:
 
 ```sql
 /* Create */
-INSERT INTO subjects(menu_name, position, visible) VALUES ('About global bank', 1 , 1);
+INSERT INTO subjects(menu_name, position, visible) VALUES ('About', 1 , 1);
 INSERT INTO subjects(menu_name, position, visible) VALUES ('Payments', 2 , 1);
 INSERT INTO subjects(menu_name, position, visible) VALUES ('Loans', 3 , 1);
 INSERT INTO subjects(menu_name, position, visible) VALUES ('Contact', 4 , 1);
@@ -743,7 +743,7 @@ Een typische interactie met een database vanuit PHP ziet er als volgt uit:
     $dbhost = 'localhost';
     $dbuser = 'webuser';
     $dbpass = 'secretpassword';
-    $dbname = 'globe_bank';
+    $dbname = 'vives';
 
     // 1. Verbinden met de database
     $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
