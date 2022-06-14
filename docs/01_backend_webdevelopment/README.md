@@ -50,7 +50,7 @@ Om een mail te kunnen versturen vanuit onze localhost moeten we enkele instellin
 * Kies voor App-wachtwoorden, als app kies je email en als apparaat windows computer.
 * Klik vervolgens op genereren en kopieer de toegangscode zodat je die straks kan gebruiken.
 
-2. Ga naar de folder `C:\xampp\php`, open er het bestand `php.ini` en pas volgende regels aan (gewoon de ~ verwijderen):
+2. Open het bestand `php.ini` via het XAMPP control panel en pas volgende regels aan:
 
 ```ini
 [mail function] 
@@ -72,7 +72,7 @@ auth_username=YourGmailId@gmail.com
 auth_password=Your-Gmail-app-pasword
 ```
 ::: warning Restart Apache server
-Je zal de apache server moeten herstarten, je kan dit via services doen.
+Je zal de apache server moeten herstarten, je kan dit via XAMPP control panel doen.
 :::
 
 
@@ -685,13 +685,14 @@ Geeft van al de boeken de naam van de auteur, de titel van het boek, de categori
 
 #### Een oefendatabase aanmaken en CRUD testen
 
-We starten met de aanmaak van een database en een gebruiker. Je kan dit in jou favarite tool doen zoals **mySQL Workbench** of **phpMyAdmin**.
+We starten met de aanmaak van een database en een gebruiker. Je kan dit in **phpMyAdmin** doen.
+Je start dit op in je browser met url `localhost[:jouw poort]/phpmyadmin`
 
 ```sql
 CREATE DATABASE globe_bank;
 USE globe_bank;
 CREATE USER 'webuser'@'localhost' IDENTIFIED BY "secretpassword";
-GRANT ALL ON globe_bank.* TO 'webuser'@'localhost’;
+GRANT ALL PRIVILEGES ON globe_bank.* TO 'webuser'@'localhost';
 ```
 
 Vervolgens maken we een tabel, ook schema genoemd, aan.
