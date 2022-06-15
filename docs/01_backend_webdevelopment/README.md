@@ -799,6 +799,8 @@ Eerst even uitleggen wat een **HTTP GET Request** is:
 
 ### Filteren van data
 
+Je kan de table [student](/files/student.sql) importeren met phpMyAdmin.
+
 ```sql
 SELECT STUDENT_ID,VOORNAAM,NAAM
 FROM STUDENT
