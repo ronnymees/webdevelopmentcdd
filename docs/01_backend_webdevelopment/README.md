@@ -998,7 +998,7 @@ Laten we even kijken hoe we een afbeelding kunnen uploaden en bewaren in een dat
 We starten met het aanmaken van een nieuwe database door het volgende sql-statement uit te voeren in onze MySQL tool:
 
 ```sql
-CREATE TABLE `images` (
+CREATE TABLE `images2` (
   `id` int(11) NOT NULL,
   `file_path` varchar(255) NOT NULL
 );
@@ -1046,16 +1046,23 @@ We plaatsten als een `placeholder` voor de afbeelding met een blanko `src`. Late
 We maken hiervoor het Javascript bestand `script.js` aan:
 
 ```js
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) 
-        document.getElementById("imgPlaceholder").src=e.target.result;
-        reader.readAsDataURL(input.files[0]);
+const chooseFile = document.getElementById("chooseFile");
+const imgPreview = document.getElementById("imgPlaceholder");
+
+chooseFile.addEventListener("change", function () {
+    getImgData();
+});
+
+function getImgData() {
+    let files = chooseFile.files[0];
+    if (files) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(files);
+      fileReader.addEventListener("load", function () {
+        imgPreview.src =this.result;
+      });    
     }
 }
-  
-document.getElementById('chooseFile').addEventListener('change',readURL(this));   
 ```
 
 Een submit van deze form zal via een HTTP POST Request zichzelf terug oproepen.
@@ -1070,7 +1077,7 @@ We vangen dit via PHP bovenaan de form op maken verbinding met onze database:
         $dbhost = 'localhost';
         $dbuser = 'webuser';
         $dbpass = 'secretpassword';
-        $dbname = 'images';
+        $dbname = 'images2';
         // Verbinden met de database
         $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);        
     }
