@@ -1082,7 +1082,7 @@ We vangen dit via PHP bovenaan de form op maken verbinding met onze database:
         $dbhost = 'localhost';
         $dbuser = 'webuser';
         $dbpass = 'secretpassword';
-        $dbname = 'images2';
+        $dbname = 'vives';
         // Verbinden met de database
         $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);   
         
@@ -1107,6 +1107,9 @@ We definieren eerst enkele variabelen:
         // Extensie van het bestand
         $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 ```
+::: tip Tip
+Je zal een folder `images` moeten aanmaken in het project.
+:::
 
 Nu kunnen we controleren of de afbeelding wel bestaat:
 ```php
