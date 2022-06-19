@@ -999,8 +999,9 @@ We starten met het aanmaken van een nieuwe database door het volgende sql-statem
 
 ```sql
 CREATE TABLE `images2` (
-  `id` int(11) NOT NULL,
-  `file_path` varchar(255) NOT NULL
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_path` varchar(255) NOT NULL,
+  PRIMARY KEY (id)
 );
 ```
 
@@ -1017,6 +1018,7 @@ Laten we nu een HTML formulier aanmaken in het bestand `index.php`:
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     </head>
     <body>
+        <!-- form -->
         <form action="" method="post" enctype="multipart/form-data" class="mb-3">
             <h3 class="text-center mb-5">Upload image</h3>
 
@@ -1035,6 +1037,9 @@ Laten we nu een HTML formulier aanmaken in het bestand `index.php`:
                 Upload File
             </button>
         </form>
+
+        <!-- foutmeldingen -->
+
         <script src="/scripts/script.js"></script>
     </body>
 </html>
@@ -1079,98 +1084,122 @@ We vangen dit via PHP bovenaan de form op maken verbinding met onze database:
         $dbpass = 'secretpassword';
         $dbname = 'images2';
         // Verbinden met de database
-        $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);        
+        $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);   
+        
+        // Hier komen enkele variabele definities
+
+        // De validatiecode komt hier
+
+        // De code om de afbeelding op te laden en in onze database te registreren komt hier
     }
 ?>
 ```
 
-Laten we eerst controleren of de afbeelding wel bestaat:
-
+Laten we eerst controleren of de afbeelding wel bestaat.
+We definieren eerst enkele variabelen:
 ```php
-if (!file_exists($_FILES["fileUpload"]["tmp_name"])) {
-    $resMessage = array(
-        "status" => "alert-danger",
-        "message" => "Select image to upload."
-    );
-}
+        // Folder voor de afbeeldingen 
+        $target_dir = "images/";
+
+        // Naam van het bestand 
+        $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
+        
+        // Extensie van het bestand
+        $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+```
+
+Nu kunnen we controleren of de afbeelding wel bestaat:
+```php
+        // Controle of afbeelding bestaat.
+        if (!file_exists($_FILES["fileUpload"]["tmp_name"])) {
+            $resMessage = array(
+                "status" => "alert-danger",
+                "message" => "Select image to upload."
+            );
+        }
 ```
 Als we de afbeeling niet kunnen vinden dan maken we een foutmeldingsarray die we straks zullen tonen aan de gebruiker.
 
-Stel dat we enkel bestandstypes `jpg`, `jpeg` en `png` wil toelaten dan kan je de code als volgt uitbreiden:
+Stel dat we enkel bestandstypes `jpg`, `jpeg` en `png` wil toelaten dan kan je de code als volgt uitbreiden.
+We definieren eerst een array met de toegelaten bestandstypes:
 
 ```php
-$imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        // Toegelaten bestandstypes
+        $allowd_file_ext = array("jpg", "jpeg", "png");
+```
+Gevolgd door de validatie van bestandstype:
 
-$allowd_file_ext = array("jpg", "jpeg", "png");
-
-else if (!in_array($imageExt, $allowd_file_ext)) {
-    $resMessage = array(
-        "status" => "alert-danger",
-        "message" => "Allowed file formats .jpg, .jpeg and .png."
-    );
-}
+```php
+        // Enkel jpg, jpeg en png toelaten
+        else if (!in_array($imageExt, $allowd_file_ext)) {
+            $resMessage = array(
+                "status" => "alert-danger",
+                "message" => "Allowed file formats .jpg, .jpeg and .png."
+            );
+        }
 ```
 
 Om te vermijden dat grote bestanden opgeladen worden kunnen we de grootte beperken tot 2MB door de code met onderstaande aan te vullen:
 
 ```php
-else if ($_FILES["fileUpload"]["size"] > 2097152) {
-    $resMessage=array(
-        "status"=> "alert-danger",
-        "message"=> "File is too large. File size should be less than 2 megabytes."
-    );
-}
+        // max 2Mb groot
+        else if ($_FILES["fileUpload"]["size"] > 2097152) {
+            $resMessage=array(
+                "status"=> "alert-danger",
+                "message"=> "File is too large. File size should be less than 2 megabytes."
+            );
+        }
 ```
 
 Tot slot kunnen we nog controleren of het bestand niet al reeds is opgeladen:"
 
 ```php
-else if (file_exists($target_file)) {
-    $resMessage = array(
-        "status" => "alert-danger",
-        "message" => "File already exists."
-    );
-}
+        // Is deze afbeelding al opgeladen ?
+        else if (file_exists($target_file)) {
+            $resMessage = array(
+                "status" => "alert-danger",
+                "message" => "File already exists."
+            );
+        }
 ```
 
-Laten we tot slot onze afbeelding uploaden en registreren in onze database:
+Als we door de validatie raken kan onze afbeelding opgeladen worden en kunnen we die registreren in onze database:
 
 ```php
-$target_dir = "img_dir/";
-        
-$target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);        
-
-if (!file_exists($_FILES["fileUpload"]["tmp_name"])) 
-            
-         else 
-            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) 
+        // afbeelding opladen en registreren in onze database
+        else {
+            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
                 // Het SQL statement opbouwen
-                $insert = "INSERT INTO images (file_path) VALUES ('$target_file')";
+                $insert = "INSERT INTO images2 (file_path) VALUES ('$target_file')";
+        
                 // Het SQL statement uitvoeren
-                mysqli_query($connection,$insert);
-                 if($stmt->execute())
+                $result = mysqli_query($connection,$insert);
+                if($result){
                     $resMessage = array(
                         "status" => "alert-success",
                         "message" => "Image uploaded successfully."
                     );                 
-                 
-             else 
+                }
+            }else {
                 $resMessage = array(
                     "status" => "alert-danger",
                     "message" => "Image coudn't be uploaded."
                 );
+            }
+        }
 ```
 
 Stel dat er foutmeldingen zijn moeten we die nu onder onze form tonen aan de gebruiker:
 
 ```php
-<?php 
-    if(!empty($resMessage)) {
-        echo "<div class='alert {$resMessage['status']}'>\n"
-        echo "<p>{$resMessage['message']}/p>\n"
-        echo "</div>\n"
-    }
-?>
+        <!-- foutmeldingen -->
+        <?php 
+            if(!empty($resMessage)) {
+                echo "<div class='alert {$resMessage['status']}'>\n";
+                echo "<p>{$resMessage['message']}</p>\n";
+                echo "</div>\n";
+            }
+        ?>
 ```
 
 ### Oefeningen
