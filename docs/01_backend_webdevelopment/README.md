@@ -70,6 +70,7 @@ error_logfile=error.log
 debug_logfile=debug.log
 auth_username=YourGmailId@gmail.com
 auth_password=Your-Gmail-app-pasword
+force_sender=YourGmailId@gmail.com
 ```
 ::: warning Restart Apache server
 Je zal de apache server moeten herstarten, je kan dit via XAMPP control panel doen.
@@ -998,9 +999,9 @@ Laten we even kijken hoe we een afbeelding kunnen uploaden en bewaren in een dat
 We starten met het aanmaken van een nieuwe database door het volgende sql-statement uit te voeren in onze MySQL tool:
 
 ```sql
-CREATE TABLE `images2` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `file_path` varchar(255) NOT NULL,
+CREATE TABLE images2 (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  file_path varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
 ```
@@ -1173,7 +1174,7 @@ Als we door de validatie raken kan onze afbeelding opgeladen worden en kunnen we
         else {
             if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
                 // Het SQL statement opbouwen
-                $insert = "INSERT INTO images2 (file_path) VALUES ('$target_file')";
+                $insert = "INSERT INTO images2 (file_path) VALUES ('{$target_file}')";
         
                 // Het SQL statement uitvoeren
                 $result = mysqli_query($connection,$insert);
@@ -1236,8 +1237,37 @@ De basis van het sturen van een mail ziet er als volgt uit:
 
 Test dit uit zodat je zeker bent dat je email configuratie in orde is.
 
-Laten we dit even uitbreiden met een form.
+Laten we even een voorbeeld uitwerken van een contactform.
+Je hebt een afbeelding voor dit voorbeeld nodig dat je [hier](/files/banner.jpg) kan downloaden.
 
+Maak een nieuw project folder aan met en plaats hierin :
+* een `bootstrap` folder
+Kopier hier de bootstrap files in.
+
+* een `styles` folder met een `style.css` bestand met onderstaande inhoud
+```css
+html {
+    background-color: peru;
+}
+
+body {
+    background-color: white;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+img {
+    max-width: 100%;
+}
+```
+We zullen deze style gebruiken om onze mail van een opmaak te voorzien.
+
+* een `images` folder
+Plaats hier het gedownloade `banner.jpg` bestand in
+
+* een contactform `contact.php` met onderstaande inhoud
 ```php
 <!DOCTYPE html>
 <html lang="en">
@@ -1253,14 +1283,46 @@ Laten we dit even uitbreiden met een form.
             // Is het een POST request?
             if($_SERVER['REQUEST_METHOD']=='POST')
             {
-                $to_email = "receipient@gmail.com";
-                $subject = "Simple Email Test via PHP";
-                $body = "Hi, This is test email send by PHP Script";
-                $headers = "From: sender email";
+                //Ontvangen gegevens
+                $to_email=$_POST['email'];
+                $clientname=$_POST['name'];
+                $message=$_POST['message'];
+
+                // subject definieren
+                $subject = "Copy of your contact request";
+
+                // server bestanden inladen
+                $content = file_get_contents("./styles/style.css");
+                $img = file_get_contents('./images/banner.jpg');
+                $imgdata = base64_encode($img);
+
+                // html body definieren                
+                $body = <<<EOF
+                    <html>
+                    <head>
+                    <style>
+                    $content
+                    </style>
+                    </head>
+                    <body>
+                    <img src='data:image/x-icon;base64,$imgdata'>
+                    <p>Hi $clientname,</p>
+                    <p>We have recieved your message and will get back to you within the next few working days.</p>
+                    <p>$message</p>
+                    <p>Dev team CDD</p>
+                    </body>
+                    </html>
+                EOF;
+
+                // Set content-type header for sending HTML email 
+                $headers = "MIME-Version: 1.0" . "\r\n"; 
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
+ 
+                // Mail versturen
                 $result=mail($to_email, $subject, $body, $headers);
             }
         ?>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-md-6 col-md-offset-3" id="form_container">
                 <h2>Contact Us</h2>
                 <p>Please send your message below. We will get back to you at the earliest!</p>
@@ -1295,17 +1357,20 @@ Laten we dit even uitbreiden met een form.
 
                 </form>
                 <?php
-                    if($result){
-                        echo "<div id='success_message' style='width:100%; height:100%; display:none; '>\n";
-                        echo "<h3>Posted your message successfully!</h3>\n"
-                        echo "</div>"
-
-                    }
-                    else {
-                        echo "<div id='errors_message' style='width:100%; height:100%; display:none; '>\n";
-                        echo "<h3>Error</h3>\n"
-                        echo "<p>Sorry there was an error sending your form.</p>"
-                        echo "</div>"
+                    // Is het een POST request?
+                    if($_SERVER['REQUEST_METHOD']=='POST')
+                    {
+                        if($result){
+                            echo "<div class='alert alert-success'>\n";
+                            echo "<h3>Posted your message successfully!</h3>\n";
+                            echo "</div>";
+                        }
+                        else {
+                            echo "<div class='alert alert-danger'>\n";
+                            echo "<h3>Error</h3>\n";
+                            echo "<p>Sorry there was an error sending your form.</p>";
+                            echo "</div>";
+                        }
                     }
                 ?>
             </div>
