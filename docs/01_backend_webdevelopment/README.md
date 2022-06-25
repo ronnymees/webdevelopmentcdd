@@ -939,7 +939,7 @@ Verplaats `// Hier komt de php code om de form af te handelen...` door onderstaa
     $dbhost = 'localhost';
     $dbuser = 'webuser';
     $dbpass = 'secretpassword';
-    $dbname = 'globe_bank';
+    $dbname = 'vives';
 
     // Verbinden met de database
     $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
