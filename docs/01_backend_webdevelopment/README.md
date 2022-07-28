@@ -110,6 +110,13 @@ Om PHP iets te laten weergeven naar de gebruiker gebruiken we het commando `echo
     echo 2 + 3;
 ?>
 ```
+
+Als je enkel een stukje PHP code wil gebruiken om iets naar het scherm te schrijven kan je ook de verkorte notitie gebruiken.
+
+```php
+<h2>Welcome <?= $name ?></h2>
+```
+
 Zoals je in de code hierboven reeds kon vaststellen is het bij PHP eveneens mogelijk om commentaar toe te voegen aan je code. Dit is een 'best-practice' techniek die sterk aangeraden wordt. Het kost je wat extra tijd bij het schrijven van je code, maar nadien haal je er veel winst bij als jij of iemand anders je code moet lezen of aanpassen.
 
 ```php
@@ -141,6 +148,17 @@ Het volgende voorbeeld neemt twee string variabelen voegt deze samen in een derd
     echo $zin;
 ?>
 ```
+
+Je kan ook een string toevoegen aan een string variabele.
+
+```php
+<?php
+    $zin = "Beste ";
+    $zin .= "studenten";
+    echo $zin;
+?>
+```
+
 Je kan ook de variabele in je tekst plaatsen, maar dit werkt enkel als je de tekst met `"`definieert.
 
 ```php
@@ -442,6 +460,16 @@ In PHP is er een duidelijk verschil tussen een variabele en een constante. De na
 
 Logische beslissingen in PHP werken op identiek dezelfde wijze als in c#. De opbouw van condities is dan weer identiek aan dat van Javascript.
 
+#### vergelijkingsoperator
+
+* `==` : vergelijkt de waarden zonder rekening te houden met hun datatype.
+* `===` : vergelijkt de waarden en hun datatype.
+* `<>` of `!=` : is niet gelijk aan zonder rekening te houden met hun dataype.
+* `!==` : is niet gelijk aan.
+* `<` en `>` : groter en kleiner dan.
+* `<=` en `>=` : groter of gelijk aan en kleiner of gelijk aan.
+* `<=>` : geeft een 0 als ze gelijk zijn, een 1 als de eerste waarde groter is dan de tweede en een -1 voor het omgekeerde.
+
 #### if, elseif en else
 
 ```php
@@ -482,6 +510,15 @@ Logische beslissingen in PHP werken op identiek dezelfde wijze als in c#. De opb
             echo "a is niet gelijk aan 0, 1, 2 of 3";
             break;
     }
+?>
+```
+
+#### Ternary operator
+
+```php
+<?php
+    $stock=7;
+    $message = ($stock > 0) ? 'In stock' : 'Sold out';
 ?>
 ```
 
@@ -627,6 +664,20 @@ Om dit op te lossen moeten we 1 regeltje toevoegen:
 ::: warning Noot
 De techniek hierboven met het gebruik van `global` zal zelden gebruikt worden, maar het verduidelijkt wel het onderscheid tussen een globaal en lokaal gedefinieerde variabele.
 :::
+
+### Hergebruiken van code
+
+In een website zijn sommige delen meermaals nodig, denk maar aan de header, navigatiebar, footer, ...
+
+Je kan die in een aparte file voorzien en dan toevoegen aan je pagina.
+
+```php
+<?php include 'includes/header.php'; ?>
+
+// de html en php code van de pagina...
+
+<?php include 'includes/footer.php'; ?>
+```
 
 ### Oefeningen
 
