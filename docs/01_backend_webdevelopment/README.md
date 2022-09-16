@@ -701,7 +701,7 @@ Als voorbereiding op de leerstof van volgende week volg je onderstaande videotut
 
 ![image](./images/mysql.png)
 
-[Hier](https://devhints.io/mysql) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
+[Hier](/files/cheatsheet_sql.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
 
 ### Opfrissen van SQL
 
@@ -1461,5 +1461,4 @@ Start nu phpMyAdmin op en voer onderstaande sql-statement uit om onze gebruiker 
 CREATE USER 'webuser'@'localhost' IDENTIFIED BY "secretpassword";
 GRANT ALL PRIVILEGES ON vives.* TO 'webuser'@'localhost';
 ```
-
 :::
