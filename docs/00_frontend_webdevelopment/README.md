@@ -37,6 +37,74 @@ Bekijk [de gebruikersgids van Visual Studio Code](https://code.visualstudio.com/
 
 [Hier](/files/cheatsheet_js.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
 
+### Wat verstaan we onder een computerprogramma ?
+
+Een computerprogramma is **een opeenvolging van instructies** met als doel om **een specifieke taak met een computer uit te voeren**.
+
+In zijn eenvoudigste vorm kan je dit vergelijken met bv 
+* Een recept
+* Een muziekpartituur
+* Een breipatroon
+* Een gebruiksaanwijzing
+* De montage instructies van Ikea
+
+Als voorbeeld nemen we een fles shampoo, het ‘programma’ zou dan kunnen zijn :
+
+1. Maak het haar nat
+2. Doe er de shampoo op
+3. Wrijf de shampoo door het haar
+4. Spoel de shampoo uit je haar
+5. Droog je haar af
+
+:::warning Definitie
+Een programma is dus een logische opeenvolging van handelingen/instructies die er voor zorgen dat een taak volbracht kan worden.
+:::
+
+:::tip Oefening - ga in groepjes zitten en schrijf de instructies neer om: 
+* Een biefstuk te bakken
+* Een pint te tappen
+* Vers gesneden frietjes te bakken
+* Te tanken
+* Een straat over te steken op het zebrapad
+:::
+
+Om er voor te zorgen dat de computer onze instructies begrijpt moeten we een taal gebruiken die wij kunnen lezen/programmeren en die de computer kan verstaan.
+
+Zo’n taal noemen we een **programmeertaal**. 
+
+* Java
+* Python
+* C / C++ / C#
+* …
+
+In deze cursus zullen we **Javascript** gaan gebruiken, wat eigenlijk onder de categorie script valt (later meer hierover).
+
+### Op verkenning door onze laptop
+Laten we **Windows Verkenner** even opstarten.
+* Wat staat er allemaal op onze C-schijf (OS-drive).
+* Sommigen hebben een D-schijf (Data-drive).
+* Waar staat onze software en waar schrijven we onze DATA weg?
+
+:::warning ‘Good Practice’
+* Maak een folder waar je alles van school in plaatst
+(vb School of Vives of Graduaat CDD of …)
+* Maak een folder waar je alles van dit vak plaatst
+(vb Frontend webdevelopment )
+* Voor elk project (oefening, voorbeeld, taak,… ) zal ook een een folder aangemaakt worden.
+:::
+
+Een projectfolder bevat meestal volgende files en subfolders:
+* Een folder `images` waarin alle afbeeldingen staan
+* Een folder `scripts` waarin alle `.js` bestanden komen
+* Een folder `styles` waarin alle `.css` bestanden komen
+* Verder heb je alle `.html` en `.php` bestanden die meestal niet in een subfolder staan.
+
+:::warning Indienen files
+Om een oefening of taak in te dienen moet je de projectfolder comprimeren naar een ZIP-file en die file via Toledo indienen. 
+
+**Let op:** Een ZIP-file kan je niet doormailen binnen VIVES, daarvoor gebruik je dan WinRAR. 
+:::
+
 ### Wat is Javascript precies?
 
 ![image](./images/javascripticon.png)
