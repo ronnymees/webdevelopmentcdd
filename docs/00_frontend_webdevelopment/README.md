@@ -56,7 +56,7 @@ Als voorbeeld nemen we een fles shampoo, het ‘programma’ zou dan kunnen zijn
 4. Spoel de shampoo uit je haar
 5. Droog je haar af
 
-:::warning Definitie
+:::warning ❗Definitie
 Een programma is dus een logische opeenvolging van handelingen/instructies die er voor zorgen dat een taak volbracht kan worden.
 :::
 
@@ -85,7 +85,7 @@ Laten we **Windows Verkenner** even opstarten.
 * Sommigen hebben een D-schijf (Data-drive).
 * Waar staat onze software en waar schrijven we onze DATA weg?
 
-:::warning ‘Good Practice’
+:::warning 👍‘Good Practice’
 * Maak een folder waar je alles van school in plaatst
 (vb School of Vives of Graduaat CDD of …)
 * Maak een folder waar je alles van dit vak plaatst
@@ -117,7 +117,7 @@ Verwar JavaScript niet met de Java programmertaal. Beiden "Java" and "JavaScript
 
 Met Javascript kunnen webpagina's interactiever worden gemaakt door toegang te krijgen tot de inhoud en de opmaak van een webpagina en deze te wijzigen terwijl de pagina in de browser wordt bekeken. M.a.w. Javascript zorgt ervoor dat je een webpagina **interactief** kan maken zodat deze reageert op wat de gebruiker doet. Elke actie die moet gebeuren verloopt via een **script** en wordt door de browser, dus aan de **client-side**, verwerkt.
 
-::: tip Ondersteunend leermateriaal
+::: tip 📖Ondersteunend leermateriaal
 
 We raden jullie volgend ondersteunend leermateriaal aan:
 
@@ -191,12 +191,21 @@ Of je kan terug met een aparte file werken, wat de voorkeur geniet.
 
 Als de browser een `<script>` element tegen komt zal het op die plaats pas het script laden en kijken of het iets moet doen.
 
-::: tip Tip
+::: tip 💡Tip
 Maak een folder 'scripts' aan waarin je de Javascript bestanden plaatst.
 
 Voeg je script steeds **onderaan je body** toe, zo krijgt de gebruiker je webpagina reeds te zien terwijl het script nog aan het laden is bij een trage internetverbinding.
 
 Als je in javascript andere javascripts gebruikt moet je die voor jou script link plaatsen in de body.
+
+✏️ **UPDATE**
+
+Een nieuwere techniek om er voor te zorgen dat de DOM van je HTML laad voor je script is het gebruik maken van het attribuut `defer`. Dit zorgt er voor dat het script laad in de achtergrond maar pas uitgevoerd wordt als de DOM volledig is opgebouwd.
+
+```html
+<script defer src="/scripts/script.js"></script>
+```
+Hierdoor is het minder belangrijk om je scripts onderaan de body te plaatsen, maar mag je die gewoon ook in de head plaatsen.
 :::
 
 ### Variabelen
@@ -223,7 +232,7 @@ const y = 11
 ```
 Const is de definitie van een constante, heeft dezelfde scope als let maar je kan de waarde niet aanpassen.
 
-::: warning Aandacht
+::: warning ❗Aandacht
 Als je een variable definieert zonder let, var of const dan is dit automatisch een globale variabele. Je moet dan ook goed opletten dat je nergens anders een variabele definieert met dezelfde naam.
 
 Om te vermijden dat je die let, var of const per ongeluk zou vergeten kan je bovenaan je script file "use strict"; plaatsen. Je krijgt dan een foutmelding als je het vergeet.
@@ -235,7 +244,7 @@ let somevariable;
 ```
 :::
 
-**Regels omtrent naamgeving van variabelen**
+👉**Regels omtrent naamgeving van variabelen**
 
 1. De naam moet met een letter, een `$` of een `_` starten. Nooit met een cijfer!
 2. De naam kan letters, cijfers, een `$` of een `_` bevatten. Nooit een `-`  of `.`!
@@ -559,7 +568,7 @@ userName.addEventListener('blur', checkUsername, false);
   * voor en na een operator (`==`, `<`, `&&`, `+`, ...)
 * Vermijd het gebruik van `var` om een variabele te definiëren
 
-::: danger Waarschuwing
+::: danger ⛔ Waarschuwing
 Gebruik nooit de syntax `.innerHTML`, het houd enorme **security risico's** in!
 
 Met name **Cross-Site Scripting Attacks** (XSS). Hieronder twee voorbeelden hoe een hacker met eenvoudige code toegang krijgt tot een useraccount:
@@ -757,7 +766,7 @@ Je kan [hier](https://www.w3schools.com/jquery/jquery_intro.asp) meer info over 
 
 Onthou vooral dat als je **een $-teken** in Javascript ziet staan dan heb je te maken met JQuery.
 
-::: tip
+::: tip 💡 Tip
 Jquery moet eerst geladen zijn voor je de javascript laadt, andersom zal Javascript die $ verwijzing niet begrijpen.
 :::
 
@@ -821,7 +830,7 @@ Je merkt dat via deze techniek de code veel leesbaarder lijkt.
 
 De functie zal bij elke Await de code verlaten en later op dat punt dan verder doen als de info beschikbaar is.
 
-::: danger Let op
+::: danger ⛔Let op
 Deze techniek werkt niet bij oude browsers!
 :::
 
@@ -839,7 +848,7 @@ Zoals bv:
 
 Het vinden van een API kan lastig zijn. Alle grote web applicaties zoals Youtube, Google Maps, Dropbox, Twitter, ... hebben er een, maar er zijn ook ontelbare kleine specifieke API's die je ofwel doorkrijgt van een fabrikant of eventueel kan opzoeken via [rapidapi.com](https://rapidapi.com/marketplace).
 
-::: danger Let op
+::: danger ⛔Let op
 Niet alle API's zijn zomaar gratis!
 :::
 
