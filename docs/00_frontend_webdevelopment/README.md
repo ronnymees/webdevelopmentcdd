@@ -692,6 +692,10 @@ In dit voorbeeld werken we met een geneste if structuur om alle input te valider
 
 Je merkt ook dat telkens iets niet valid is er een false wordt retourneert, moesten we dit niet doen zou de pagina gewoon refreshen.
 
+::: warning Let op:
+In dit voorbeeld maken we gebruik van de `alert` functie om feedback te geven aan de gebruiker. Dit omdat we alleen de structuur van validatie willen aantonen. Het is echter nooit een goed idee om `alert` te gebruiken, het wordt immers als storend ervaren door de gebruiker. Je kan de feedback via kleur aanduiding en/of foutmeldingen in je form duidelijk maken.
+:::
+
 ### Oefening
 
 ::: tip Oefenen om forms met meerdere inputvarianten te valideren
