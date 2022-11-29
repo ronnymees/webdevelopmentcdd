@@ -15,20 +15,31 @@ Ga naar [de website van XAMPP](https://www.apachefriends.org/download.html) en d
 Installeer vervolgens met alle default waarden.
 
 ::: warning Installatie path
-Zorg er voor dat je installatie path `c:\xampp` is.
+* Windows : Zorg er voor dat je installatie path `c:\xampp` is.
+* Mac OS : Het installatie path is `/Applications/XAMPP`.
 :::
 
 Configuratie's kan je doen via het XAMPP controle panel.
 
 Wat als poort 80 reeds bezet is? Je kan jou Apache server ook via een andere poort laten werken.
-Ga via het XAMPP control panel naar de `httpd.conf` file en maak onderstaande aanpassingen:
+Ga via het XAMPP control panel naar de `httpd.conf` file
+
+**Windows** : Config bij Apache > Apache(httpd.conf)
+
+**Mac OS** : Manage Servers > Apache Web Server > Configure > Open Conf File
+
+Maak onderstaande aanpassingen:
 
 ```conf
 Servername localhost:80 // wijzig de 80 naar bv 8000
 ...
 listen 80 // wijzig ook hier de 80 naar dezeflde poort als je hierboven hebt gekozen
 ```
-Om te controleren dat je Apache server en PHP goed werken kan je het volgende testbestand `phpinfo.php` aanmaken in de folder `C:\xampp\htdocs`:
+Om te controleren dat je Apache server en PHP goed werken kan je het volgende testbestand `phpinfo.php` aanmaken in de **ROOT folder**.
+
+**Window** : `C:\xampp\htdocs`
+
+**Mac OS** : `/Applications/XAMPP/htdocs`
 
 ```php
 <?php
@@ -50,7 +61,11 @@ Om een mail te kunnen versturen vanuit onze localhost moeten we enkele instellin
 * Kies voor App-wachtwoorden, als app kies je email en als apparaat windows computer.
 * Klik vervolgens op genereren en kopieer de toegangscode zodat je die straks kan gebruiken.
 
-2. Open het bestand `php.ini` via het XAMPP control panel en pas volgende regels aan:
+2. Configuratie van mail in Xampp
+
+**Windows** gebruikers volgen deze stappen:
+
+Open het bestand `c:\xampp\php\php.ini` en pas als volgt aan:
 
 ```ini
 [mail function] 
@@ -60,7 +75,7 @@ sendmail_from = YourGmailId@gmail.com
 sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
 ```
 
-3. Ga naar de folder `C:\xampp\sendmail`, open er het bestand `sendmail.ini` en pas volgende regels aan (gewoon de ~ verwijderen):
+Open het bestand `c:\xampp\sendmail\sendmail.ini` en pas volgende regels aan (gewoon de ~ verwijderen):
 
 ```ini
 [sendmail]
@@ -72,6 +87,51 @@ auth_username=YourGmailId@gmail.com
 auth_password=Your-Gmail-app-pasword
 force_sender=YourGmailId@gmail.com
 ```
+
+**Mac OS** gebruikers volgen deze stappen:
+
+Open het bestand `/Applications/XAMPP/etc/php.ini` en pas als volgt aan:
+
+```ini
+[mail function] 
+sendmail_path = /usr/sbin/sendmail -t -i
+```
+
+Open het bestand `/Applications/XAMPP/etc/postfix/main.cf` en pas volgende regels aan:
+
+```ini
+mydomain_fallback = localhost
+mail_owner = _postfix
+setgid_group = _postdrop
+#Gmail SMTP
+relayhost=smtp.gmail.com:587
+# Enable SASL authentication in the Postfix SMTP client.
+smtp_sasl_auth_enable=yes
+smtp_sasl_password_maps=hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options=noanonymous
+smtp_sasl_mechanism_filter=plain
+# Enable Transport Layer Security (TLS), i.e. SSL.
+smtp_use_tls=yes
+smtp_tls_security_level=encrypt
+tls_random_source=dev:/dev/urandom
+```
+
+Maak nu het bestand `/etc/postfix/sasl_passwd` aan met volgende inhoud:
+
+```
+smtp.gmail.com:587 YourGmailId@gmail.com:Your-Gmail-app-pasword
+```
+
+Open nu een terminal en voor onderstaande commando uit:
+
+```bash
+sudo postmap /etc/postfix/sasl_passwd
+```
+
+::: warning
+Het is mogelijk dat je de foutmelding `SASL authentication failed` krijgt, dan zal je de optie `Access for less secure apps` in je Gmail account zal moeten activeren.
+:::
+
 ::: warning Restart Apache server
 Je zal de apache server moeten herstarten, je kan dit via XAMPP control panel doen.
 :::
