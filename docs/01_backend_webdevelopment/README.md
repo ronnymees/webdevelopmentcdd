@@ -97,12 +97,27 @@ Open het bestand `/Applications/XAMPP/etc/php.ini` en pas als volgt aan:
 sendmail_path = /usr/sbin/sendmail -t -i
 ```
 
-Open het bestand `/Applications/XAMPP/etc/postfix/main.cf` en pas volgende regels aan:
+Open het bestand `/etc/postfix/main.cf` door een terminal te openen en het volgende commando uit te voeren:
+
+```shell
+sudo nano /etc/postfix/main.cf
+```
+
+::: tip 👉 Tip
+* Gebruik `ctrl+W` om een woord te zoeken
+* Gebruik `ctrl+X` om te saven en af te sluiten
+:::
+
+controleer of volgende regels juist zijn:
 
 ```ini
-mydomain_fallback = localhost
 mail_owner = _postfix
 setgid_group = _postdrop
+```
+
+en en voeg volgende regels onderaan toe:
+
+```ini
 #Gmail SMTP
 relayhost=smtp.gmail.com:587
 # Enable SASL authentication in the Postfix SMTP client.
@@ -116,15 +131,21 @@ smtp_tls_security_level=encrypt
 tls_random_source=dev:/dev/urandom
 ```
 
-Maak nu het bestand `/etc/postfix/sasl_passwd` aan met volgende inhoud:
+Maak nu het bestand `/etc/postfix/sasl_passwd` aan door het volgende commando uit te voeren in de terminal:
+
+```shell
+sudo nano /etc/postfix/sasl_passwd
+```
+
+met volgende inhoud:
 
 ```
 smtp.gmail.com:587 YourGmailId@gmail.com:Your-Gmail-app-pasword
 ```
 
-Open nu een terminal en voor onderstaande commando uit:
+Voer nu onderstaande commando uit in de terminal:
 
-```bash
+```shell
 sudo postmap /etc/postfix/sasl_passwd
 ```
 
@@ -1426,6 +1447,8 @@ Plaats hier het gedownloade `banner.jpg` bestand in
                 EOF;
 
                 // Set content-type header for sending HTML email 
+                $sender = "your.email@gmail.com";\
+                $headers = "From: Your Companyname <$sender>" . "\r\n";
                 $headers = "MIME-Version: 1.0" . "\r\n"; 
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
  
