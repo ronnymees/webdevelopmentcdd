@@ -1173,7 +1173,7 @@ Laten we nu een HTML formulier aanmaken in het bestand `index.php`:
 
         <!-- foutmeldingen -->
 
-        <script src="/scripts/script.js"></script>
+        <script src="./scripts/script.js"></script>
     </body>
 </html>
 ```
@@ -1242,6 +1242,7 @@ We definieren eerst enkele variabelen:
 ```
 ::: tip Tip
 Je zal een folder `images` moeten aanmaken in het project.
+> `Mac OS` gebruikers zullen de rechten moeten aanpassen naar `read & write`
 :::
 
 Nu kunnen we controleren of de afbeelding wel bestaat:
