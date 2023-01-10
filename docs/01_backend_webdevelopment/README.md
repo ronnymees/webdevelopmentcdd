@@ -1370,37 +1370,50 @@ De basis van het sturen van een mail ziet er als volgt uit:
 
 Test dit uit zodat je zeker bent dat je email configuratie in orde is.
 
-Laten we even een voorbeeld uitwerken van een contactform.
-Je hebt een afbeelding voor dit voorbeeld nodig dat je [hier](/files/banner.jpg) kan downloaden.
+Laten we even een voorbeeld uitwerken van een contactform die een HTML mail verstuurd.
 
-Maak een nieuw project folder aan met en plaats hierin :
-* een `bootstrap` folder
-Kopier hier de bootstrap files in.
+::: tip TIP
+* Embedded afbeeldingen werken niet meer op alle mail platformen door recentelijk gewijzigde policies. Hierdoor is het dus steeds de beste optie om je afbeelding op de server te plaatsen en die link te gebruiken in de source van je IMG element.
+* Veel mailplatformen accepteren enkel nog inline styling.
+* Je stelt je HTML mail best op via een apart bestand.
+:::
 
-* een `styles` folder met een `style.css` bestand met onderstaande inhoud
-```css
-html {
-    background-color: peru;
-}
+In dit voorbeeld gebruiken we [een afbeelding](http://claphamstudiohire.com/wp-content/uploads/2015/06/dslr-banner-1200x350.jpg) die we online vonden: 
+In de praktijk zal je dus werken met een afbeelding die publiek staat op je eigen server.
 
-body {
-    background-color: white;
-    width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px;
-}
+Maak een nieuw project folder aan met en plaats hierin een `bootstrap` folder. Kopier hier de bootstrap files in die we in een eerdere oefening hebben gebruikt.
 
-img {
-    max-width: 100%;
-}
+We maken nu eerst een bestand `mailtemplate.html` aan waarin we de mail die we wensen te versturen zullen opbouwen. We gebruiken inline styling voor de opmaak van onze mail.
+
+```html
+<html style="background-color: peru;">
+    <body style="background-color: white; width: 600px; margin-left: auto; margin-right: auto; padding: 10px;">
+        <img src='http://claphamstudiohire.com/wp-content/uploads/2015/06/dslr-banner-1200x350.jpg' style="max-width: 100%;">
+        <p>Hi --clientname--,</p>
+        <p>We have recieved your message and will get back to you within the next few working days.</p>
+        <p>--message--</p>
+        <p>Dev team CDD</p>
+    </body>
+</html>
 ```
-We zullen deze style gebruiken om onze mail van een opmaak te voorzien.
 
-* een `images` folder
-Plaats hier het gedownloade `banner.jpg` bestand in
+Via de liveserver kunnen we de mail bekijken en aanpassen tot die er uitziet zoals we voor ogen hadden.
+Pas nu de extensie van het bestand aan naar `mailtemplate.php` en vervang de placeholders voor de variabelen.
 
-* een contactform `contact.php` met onderstaande inhoud
+```php
+<html style="background-color: peru;">
+    <body style="background-color: white; width: 600px; margin-left: auto; margin-right: auto; padding: 10px;">
+        <img src='http://claphamstudiohire.com/wp-content/uploads/2015/06/dslr-banner-1200x350.jpg' style="max-width: 100%;">
+        <p>Hi $clientname,</p>
+        <p>We have recieved your message and will get back to you within the next few working days.</p>
+        <p>$message</p>
+        <p>Dev team CDD</p>
+    </body>
+</html>
+```
+
+Nu maken we het contact formulier `contact.php` aan.
+
 ```php
 <!DOCTYPE html>
 <html lang="en">
@@ -1418,34 +1431,17 @@ Plaats hier het gedownloade `banner.jpg` bestand in
             {
                 //Ontvangen gegevens
                 $to_email=$_POST['email'];
-                $clientname=$_POST['name'];
-                $message=$_POST['message'];
+                $clientname=htmlspecialchars($_POST['name']); 
+                $message=nl2br(htmlspecialchars($_POST['message'])); // zorgt er voor dat spacies en enters niet worden genegeerd door de html code.
 
                 // subject definieren
                 $subject = "Copy of your contact request";
 
-                // server bestanden inladen
-                $content = file_get_contents("./styles/style.css");
-                $img = file_get_contents('./images/banner.jpg');
-                $imgdata = base64_encode($img);
-
-                // html body definieren                
-                $body = <<<EOF
-                    <html>
-                    <head>
-                    <style>
-                    $content
-                    </style>
-                    </head>
-                    <body>
-                    <img src='data:image/x-icon;base64,$imgdata'>
-                    <p>Hi $clientname,</p>
-                    <p>We have recieved your message and will get back to you within the next few working days.</p>
-                    <p>$message</p>
-                    <p>Dev team CDD</p>
-                    </body>
-                    </html>
-                EOF;
+                // html body inladen               
+                ob_start();
+                include("mailtemplate.php");
+                $body = ob_get_contents();
+                ob_end_clean();
 
                 // Set content-type header for sending HTML email 
                 $sender = "your.email@gmail.com";\
