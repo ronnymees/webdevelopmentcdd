@@ -162,7 +162,7 @@ Maak de oefeningen op het elektronisch leerplatform en laad die op.
 
 Als voorbereiding op de leerstof van volgende week volg je onderstaande videotutorial:
 
-* Hoofdstuk 1 - 4 van [Learning the javascript Language](https://www.linkedin.com/learning/learning-the-javascript-language-2)
+* Hoofdstuk 1 - 4 van [Learning the javascript Language](https://www.linkedin.com/learning/learning-the-javascript-language-22309208)
 
 :::
 
