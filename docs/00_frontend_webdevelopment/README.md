@@ -174,8 +174,8 @@ Je kunt ervoor kiezen om een script block toe te voegen aan je html pagina. Indi
 
 ```html
 <body>
-    <script type="text/javascript">
-        // hier komt dan de java code
+    <script>
+        // hier komt dan de JavaScript code
     </script>
 </body>
 ```
