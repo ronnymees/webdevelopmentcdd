@@ -514,7 +514,7 @@ Om in javascript elementen van een html pagina op te vragen bestaan er enkele mo
 
 Events zijn alle gebeurtenissen in een browser. bv de gebruiker klikt ergens op, een element krijgt de focus, ...
 
-**Oudere techniek (ondersteunt door alle browsers)**
+**Oudere techniek**
 
 Je kan voor een browser één functie koppelen aan een event.
 
@@ -529,7 +529,7 @@ let userName = document.getElementById('username');
 userName.onblur = checkUsername(); // als de focus van dit element verdwijnt voer dan deze functie uit.
 ```
 
-**Nieuwere techniek (enkel ondersteunt door nieuwere browsers)**
+**Nieuwere techniek**
 
 Je kan nu meerdere functies aan een event koppelen.
 
