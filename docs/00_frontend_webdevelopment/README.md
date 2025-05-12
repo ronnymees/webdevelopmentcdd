@@ -429,21 +429,21 @@ function sayMessages(){
   for (let i=0; i< arguments.length; i++) console.log(arguments[i]);
 }
 ```
-Het doorgeven van parameters werkt hier eveneens op het principe van 'pass by value', d.w.z. dat de waarde van tijdelijk wordt gekopierd naar een lokale variabele. Dat is echter niet het geval voor reference variablen zoals bv een object. daar geld het principe van 'pass by reference' en is er sprake van een tijdelijke variabele die verwijst naar de originele.
+Het doorgeven van parameters werkt hier eveneens op het principe van 'pass by value', d.w.z. dat de waarde van tijdelijk wordt gekopieerd naar een lokale variabele. Dat is echter niet het geval voor reference variablen zoals bv een object. daar geld het principe van 'pass by reference' en is er sprake van een tijdelijke variabele die verwijst naar de originele.
 
 ```js
 // pass by value voorbeeld
-let boodschap='hi';
-function changeMessage(message){
-  message="test";
+let oldMessage = "hi";
+function changeMessage(message) {
+    message = "test";
 }
-changeMessage(boodschap);
-console.log(boodschap);    // het resultaat is 'hi'
+changeMessage(oldMessage);
+console.log(oldMessage);    // het resultaat is 'hi'
 
 // pass by reference voorbeeld
-let obj={msg:'hi'};
-function changeMessage(message){
-  message.msg="test";
+let obj = { msg: "hi" };
+function changeMessage(message) {
+    message.msg = "test";
 }
 changeMessage(obj);
 console.log(obj.msg);   	// het resultaat is 'test'
