@@ -1,4 +1,4 @@
-# Front-end webdevelopment met Javascript
+# Front-end webdevelopment met JavaScript
 
 Onder web development verstaan we het aanmaken van files die content zal beschikbaar stellen aan de gebruiker en interactie mogelijk zal maken.
 We onderscheiden hier **Front-end** webdevelopment en **Back-end** webdevelopment.
@@ -33,7 +33,7 @@ Tijdens de installatie zorg je ervoor dat volgende 2 opties aangevinked staan:
 Na installatie voeg je ook de **live server extensie** toe.
 Bekijk [de gebruikersgids van Visual Studio Code](https://code.visualstudio.com/docs/editor/extension-marketplace) voor meer informatie hoe je dit moet doen.
 
-## Week 1 - Experimenteren met Javascript
+## Week 1 - Experimenteren met JavaScript
 
 [Hier](/files/cheatsheet_js.pdf) kan je een cheatsheet terugvinden ter ondersteuning van taken, toetsen, projecten en werkplekleren.
 
@@ -77,7 +77,7 @@ Zo’n taal noemen we een **programmeertaal**.
 * C / C++ / C#
 * …
 
-In deze cursus zullen we **Javascript** gaan gebruiken, wat eigenlijk onder de categorie script valt (later meer hierover).
+In deze cursus zullen we **JavaScript** gaan gebruiken, wat eigenlijk onder de categorie script valt (later meer hierover).
 
 ### Op verkenning door onze laptop
 Laten we **Windows Verkenner** even opstarten.
@@ -105,7 +105,7 @@ Om een oefening of taak in te dienen moet je de projectfolder comprimeren naar e
 **Let op:** Een ZIP-file kan je niet doormailen binnen VIVES, daarvoor gebruik je dan WinRAR. 
 :::
 
-### Wat is Javascript precies?
+### Wat is JavaScript precies?
 
 ![image](./images/javascripticon.png)
 
@@ -115,7 +115,7 @@ De standaard voor JavaScript is ECMAScript. Met de ingang van 2012, ondersteunen
 
 Verwar JavaScript niet met de Java programmertaal. Beiden "Java" and "JavaScript" zijn handelsmerken of geregistreerde handelsmerken van Oracle in de VS en andere landen. Daarentegen hebben de twee programmeertalen hele verschillende syntaxis, semantiek en toepassingen.
 
-Met Javascript kunnen webpagina's interactiever worden gemaakt door toegang te krijgen tot de inhoud en de opmaak van een webpagina en deze te wijzigen terwijl de pagina in de browser wordt bekeken. M.a.w. Javascript zorgt ervoor dat je een webpagina **interactief** kan maken zodat deze reageert op wat de gebruiker doet. Elke actie die moet gebeuren verloopt via een **script** en wordt door de browser, dus aan de **client-side**, verwerkt.
+Met JavaScript kunnen webpagina's interactiever worden gemaakt door toegang te krijgen tot de inhoud en de opmaak van een webpagina en deze te wijzigen terwijl de pagina in de browser wordt bekeken. M.a.w. JavaScript zorgt ervoor dat je een webpagina **interactief** kan maken zodat deze reageert op wat de gebruiker doet. Elke actie die moet gebeuren verloopt via een **script** en wordt door de browser, dus aan de **client-side**, verwerkt.
 
 ::: tip 📖Ondersteunend leermateriaal
 
@@ -134,8 +134,8 @@ We raden jullie volgend ondersteunend leermateriaal aan:
 Als we code schrijven is dat meestal met vallen en opstaan. Fouten maken hoort hier nu eenmaal bij.
 We onderscheiden twee type fouten:
 
-* **Syntax fouten**: Dit zijn fouten waarbij de syntax van Javascript niet correct is. Meestal zijn dit typfouten of stukjes die we vergeten zijn.
-* **Logica fouten**: Hier is de syntax van Javascript correct maar het resultaat is niet wat we verwacht of bedoeld hadden. De fout ligt hierin de logica van ons programma, wat moeilijker te achterhalen valt.
+* **Syntax fouten**: Dit zijn fouten waarbij de syntax van JavaScript niet correct is. Meestal zijn dit typfouten of stukjes die we vergeten zijn.
+* **Logica fouten**: Hier is de syntax van JavaScript correct maar het resultaat is niet wat we verwacht of bedoeld hadden. De fout ligt hierin de logica van ons programma, wat moeilijker te achterhalen valt.
 
 Gelukkig heeft onze browser een ontwikkelomgeving die ons hierbij kan helpen. Voor Google Chrome open je dit via `F12` en in Safari kan je dit openen via het `Develop > Show Web Inspector` menu.
 
@@ -166,9 +166,9 @@ Als voorbereiding op de leerstof van volgende week volg je onderstaande videotut
 
 :::
 
-## Week 2 - De syntax van Javascript
+## Week 2 - De syntax van JavaScript
 
-### Javascript toevoegen aan je html pagina.
+### JavaScript toevoegen aan je html pagina.
 
 Je kunt ervoor kiezen om een script block toe te voegen aan je html pagina. Indien mogelijk vermijd je deze techniek.
 
@@ -192,11 +192,11 @@ Of je kan terug met een aparte file werken, wat de voorkeur geniet.
 Als de browser een `<script>` element tegen komt zal het op die plaats pas het script laden en kijken of het iets moet doen.
 
 ::: tip 💡Tip
-Maak een folder 'scripts' aan waarin je de Javascript bestanden plaatst.
+Maak een folder 'scripts' aan waarin je de JavaScript bestanden plaatst.
 
 Voeg je script steeds **onderaan je body** toe, zo krijgt de gebruiker je webpagina reeds te zien terwijl het script nog aan het laden is bij een trage internetverbinding.
 
-Als je in javascript andere javascripts gebruikt moet je die voor jou script link plaatsen in de body.
+Als je in JavaScript andere scripts gebruikt moet je die voor jou script link plaatsen in de body.
 
 ✏️ **UPDATE**
 
@@ -212,7 +212,7 @@ Hierdoor is het minder belangrijk om je scripts onderaan de body te plaatsen, ma
 
 Een variabele is een container of doos waarin je informatie kan bewaren.
 
-In javascript zijn variabelen 'loosely typed', wat wil zeggen dat het datatype afhankelijk is van wat je in de variabele stopt. Je kan dus perfect het ene moment een integer in een variabele hebben en enkele ogenblikken later een string in diezelfde variabele hebben.
+In JavaScript zijn variabelen 'loosely typed', wat wil zeggen dat het datatype afhankelijk is van wat je in de variabele stopt. Je kan dus perfect het ene moment een integer in een variabele hebben en enkele ogenblikken later een string in diezelfde variabele hebben.
 
 **Let**
 ```js
@@ -255,7 +255,7 @@ let somevariable;
 
 ### Datatypes
 
-Binnen javascript worden 7 primitieve datatypes gebruikt:
+Binnen JavaScript worden 7 primitieve datatypes gebruikt:
 * Boolean : true of false
 * Number : integer of float
 * BigInt : een integer met onbeperkte grootte, te herkennen aan een kleine n na het getal bv `23232n`
@@ -311,19 +311,19 @@ myArray.pop();           // Zal het laatste item van de array verwijderen
 ```
 ### Logische operatoren
 
-We kunnen in javascript de gekende logische operatoren gebruiken om condities te  bouwen:
+We kunnen in JavaScript de gekende logische operatoren gebruiken om condities te  bouwen:
 
 * `&&` de EN operator
 * `||` de OF operator
 * `!` de NIET operator
 
-Bijzonder bij de interpretatie van condities is dat javascript de conditie bekijkt tot de uitkomst met zekerheid vastligt, de rest van de conditie wordt op dat ogenblik niet meer geinterpreteerd.
+Bijzonder bij de interpretatie van condities is dat JavaScript de conditie bekijkt tot de uitkomst met zekerheid vastligt, de rest van de conditie wordt op dat ogenblik niet meer geinterpreteerd.
 ```js
 false && (a=2)  // linker deel is false, dus de conditie is false, a=2 zal niet meer uitgevoerd worden.
 ```
 ### Beslissingen
 
-We kunnen in javascript de gebruikelijke beslissingsstructuren gebruiken:
+We kunnen in JavaScript de gebruikelijke beslissingsstructuren gebruiken:
 
 ```js
 if(...){
@@ -368,7 +368,7 @@ Als voorbereiding op de leerstof van volgende week volg je onderstaande videotut
 
 :::
 
-## Week 3 - De syntax van Javascript (vervolg)
+## Week 3 - De syntax van JavaScript (vervolg)
 
 ### Herhalingen
 
@@ -402,7 +402,7 @@ do {
 ```
 ### Functies
 
-We kunnen in javascript eveneens met methoden en functies werken:
+We kunnen in JavaScript eveneens met methoden en functies werken:
 ```js
 // methode
 function sayMessage(message){
@@ -490,7 +490,7 @@ Zoals steeds is het 'good-practice' om je code van commentaar te voorzien.
 
 // Commentaar op 1 enkele lijn.
 ```
-#### Browser objecten
+### Browser objecten
 
 Op het hoogste niveau bevind zich het **browser object model** met informatie van het huidige browser venster of tabblad.
 
@@ -500,17 +500,87 @@ Een niveau lager kan je het **document object model** terugvinden met informatie
 
 ![image](./images/afbeelding29.png)
 
-### HTML elementen vinden
+#### HTML elementen vinden
 
-Om in javascript elementen van een html pagina op te vragen bestaan er enkele mogelijkheden:
+Om in JavaScript elementen van een html pagina op te vragen bestaan er enkele mogelijkheden:
 
-* getElementById() : één element met een bepaald id
+* **getElementById()** : één element met een bepaald id
 * getElementByName() : lijst van elementen met een bepaalde naam
 * getElementByTagName() : lijst van een bepaald type elementen
+* **querySelector()** : eerste element die voldoet aan een CSS selector
 * querySelectorAll() : lijst van elementen die voldoet aan een CSS selector
-* querySelector() : eerste element die voldoet aan een CSS selector
 
-#### Events behandelen
+Voorbeelden:
+```html
+<button id="btnHello">Zeg goeiedag !</button>
+```
+Dit element kan je in JavaScript ophalen met volgende code:
+```js
+const btnHello = document.getElementById("btnHello");
+
+// of:
+const btnHello = document.querySelector("#btnHello");
+```
+
+### HTML elementen aanpassen
+Eénmaal je het element hebt opgehaald, kan je de variabele aanpassen. De HTML zal zich aanpassen:
+```html
+<div class="paradise"></div>
+```
+
+Je kan de tekst wijzigen:
+```js
+const divElement  = document.querySelector(".paradise");
+divElement.innerText = "Welcome to paradise";
+// of om HTML te renderen
+divElement.innerHTML = "<h1>Welcome to paradise</h1>";
+```
+
+Je kan klasses toevoegen en verwijderen:
+```js
+const divElement = document.querySelector(".paradise");
+divElement.classList.add("nice-header"); // voeg een klasse toe aan het element
+divElement.classList.remove("nice-header"); // verwijder de klasse van het element
+divElement.classList.toggle("nice-header"); // voeg een klasse toe als er geen klasse is of omgekeerd
+```
+Voor elke attribuut in HTML kan je een eigenschap (=property) terugvinden in de variabele. Bv:
+
+```html
+<div class="paradise" title="Deze tekst verschijnt in een tooltip" style="background-color: yellow">
+</div>
+```
+
+```js
+const divElement = document.querySelector(".paradise");
+divElement.title = "Hiermee pas ik de tooltip aan";
+divElement.style.backgroundColor = "red";
+```
+
+### HTML elementen toevoegen
+Je kan in JavaScript ook elementen aanmaken. Denk bijvoorbeeld aan een virtual scroll, waarbij er op de pagina zoekresultaten worden geladen als je op een bepaald punt bent gekomen. 
+
+Elementen aanmaken kan je door gebruik te maken van de functie `document.createElement("--element-naam--")`. 
+
+Bijvoorbeeld:
+```js
+const newElement = document.createElement("div");
+newElement.innerText = "Welkom, dit is een nieuw element";
+```
+
+Je zal zien dat dit niet voldoende is om de HTML aan te passen. We moeten dit element immers nog toevoegen aan onze DOM. Daarvoor dienen we te bepalen waar dit moet komen. We kunnen dit doen door het als child toe te voegen aan een ander element met de functie `append()`. 
+
+Bv.:
+```js
+// we kunnen dit element toevoegen aan de body
+document.body.append(newElement);
+
+// of we kunnen dit toevoegen aan eender welk element
+const someOtherDivElement = document.querySelector("#existingDivElement");
+someOtherDivElement.append(newElement);
+```
+
+
+### Events behandelen
 
 Events zijn alle gebeurtenissen in een browser. bv de gebruiker klikt ergens op, een element krijgt de focus, ...
 
@@ -594,11 +664,11 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 :::
 
-## Week 4 - Javascript voor grafische designers
+## Week 4 - JavaScript voor grafische designers
 
-Web designers maken gebruik van Javascript om hun webpagina's visueel aantrekkelijker en gebruiksvriendelijker te maken terwijl een web developer eerder javascript zal gebruiken om zaken in de achtergrond te regelen zoals bv. het binnen halen van data en toevoegen aan een tabel.
+Web designers maken gebruik van JavaScript om hun webpagina's visueel aantrekkelijker en gebruiksvriendelijker te maken terwijl een web developer eerder JavaScript zal gebruiken om zaken in de achtergrond te regelen zoals bv. het binnen halen van data en toevoegen aan een tabel.
 
-Zoals je de voorbije weken zelf hebt kunnen vaststellen is het zelf schrijven van scripts niet zo voor de hand liggend. Toch is het belangrijk dat je als Web designer die Javascript taal begrijpt. Zo kan je leuke scripts die je online aantreft kan analyseren, begrijpen hoe die werken en die vervolgens, eventueel mits wat aanpassingen, implementeren in jou project.
+Zoals je de voorbije weken zelf hebt kunnen vaststellen is het zelf schrijven van scripts niet zo voor de hand liggend. Toch is het belangrijk dat je als Web designer die JavaScript taal begrijpt. Zo kan je leuke scripts die je online aantreft kan analyseren, begrijpen hoe die werken en die vervolgens, eventueel mits wat aanpassingen, implementeren in jou project.
 
 Laten we even enkele voorbeelden bekijken:
 
@@ -624,26 +694,26 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 Als voorbereiding op de leerstof van volgende week volg je onderstaande videotutorial:
 
-* Hoofdstuk 1 en 3 van [Learning the javascript Language](https://www.linkedin.com/learning/validating-and-processing-forms-with-javascript-and-php)
+* Hoofdstuk 1 en 3 van [Learning the JavaScript Language](https://www.linkedin.com/learning/validating-and-processing-forms-with-javascript-and-php)
 
 :::
 
-## Week 5 - Form validatie in Javascript
+## Week 5 - Form validatie in JavaScript
 
 Ter ondersteuning van deze leerstof raden we je aan om volgende bronnen te raadplegen:
 
 * [Form validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
 * [HTML5 input types](https://developer.mozilla.org/en-US/docs/Learn/Forms/HTML5_input_types)
 
-### Form validatie via javascript
+### Form validatie via JavaScript
 
-We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. javascript en html.
+We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. JavaScript en html.
 
 ![image](./images/afbeelding2.png)
 
 Je kan de files van dit voorbeeld [hier](/files/formvalidation.rar) downloaden.
 
-We gebruiken hier geen HTML validatie, enkel javascript validatie.
+We gebruiken hier geen HTML validatie, enkel JavaScript validatie.
 Laten we even kijken naar het script.
 
 ```js
@@ -704,7 +774,7 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 :::
 
-## Week 6 - Gebruik maken van Web-API's in Javascript
+## Week 6 - Gebruik maken van Web-API's in JavaScript
 
 ### JavaScript Object Notation (JSON)
 
@@ -754,7 +824,7 @@ console.log(JSON.stringify({ x: 5, y: 6 }));
 * Maak er terug een JSON string van en log dit eveneens naar de console.
 :::
 
-### Asynchronous Javascript And XML (AJAX)
+### Asynchronous JavaScript And XML (AJAX)
 
 AJAX is een techniek om je webpagina te updaten zonder dat de volledige pagina opnieuw moet worden geladen.
 Het is Google die deze techniek heeft geïntroduceerd in hun zoekmachine (als je in google iets begint te type worden suggesties gegeven).
@@ -768,13 +838,13 @@ Het is goed dat je JQuery kent maar voor nieuwe ontwikkelingen gebruik je het be
 
 Je kan [hier](https://www.w3schools.com/jquery/jquery_intro.asp) meer info over JQuery terugvinden.
 
-Onthou vooral dat als je **een $-teken** in Javascript ziet staan dan heb je te maken met JQuery.
+Onthou vooral dat als je **een $-teken** in JavaScript ziet staan dan heb je te maken met JQuery.
 
 ::: tip 💡 Tip
-Jquery moet eerst geladen zijn voor je de javascript laadt, andersom zal Javascript die $ verwijzing niet begrijpen.
+Jquery moet eerst geladen zijn voor je de JavaScript laadt, andersom zal JavaScript die $ verwijzing niet begrijpen.
 :::
 
-Het probleem van code in een browser is dat deze rechtlijnig werkt en nergens kan halthouden. Moest je via Javascript code proberen te laten wachten op iets dan zou de browser denken dat de pagina blijft “hangen” en deze dus onderbreken.
+Het probleem van code in een browser is dat deze rechtlijnig werkt en nergens kan halthouden. Moest je via JavaScript code proberen te laten wachten op iets dan zou de browser denken dat de pagina blijft “hangen” en deze dus onderbreken.
 
 Om dus te kunnen wachten op iets moet je het anders aanpakken:
 
