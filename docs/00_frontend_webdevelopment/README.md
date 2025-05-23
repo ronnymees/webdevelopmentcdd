@@ -718,7 +718,7 @@ Laten we even kijken naar het script.
 
 ```js
 // Functie die uitgevoerd wordt bij een on submit
-function ValidationEvent() {
+function validationEvent() {
     // Input in variabelen bewaren
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
@@ -831,48 +831,25 @@ Het is Google die deze techniek heeft geïntroduceerd in hun zoekmachine (als je
 
 ![image](./images/afbeelding4.gif)
 
-Aanvankelijk werd hiervoor HTMLXMLRequest gebruikt, het grote nadeel was dat je voor elke browser een andere code nodig had.
+<!-- Aanvankelijk werd hiervoor HTMLXMLRequest gebruikt, het grote nadeel was dat je voor elke browser een andere code nodig had.
 Enige tijd late werd **JQuery** ontwikkeld waarmee je uniforme code kon schrijven en JQuery ging in de achtergrond dan het probleem van de verschillende browsers aanpakken.
 
 Het is goed dat je JQuery kent maar voor nieuwe ontwikkelingen gebruik je het beter niet meer. Er wordt niet meer verder aan ontwikkeld. In de plaats hiervan gebruikt men nu de **‘fetch’ interface** die ingebouwd zit in de browsers.
 
 Je kan [hier](https://www.w3schools.com/jquery/jquery_intro.asp) meer info over JQuery terugvinden.
 
-Onthou vooral dat als je **een $-teken** in JavaScript ziet staan dan heb je te maken met JQuery.
+Onthou vooral dat als je **een $-teken** in JavaScript ziet staan dan heb je te maken met JQuery. -->
 
-::: tip 💡 Tip
+<!-- ::: tip 💡 Tip
 Jquery moet eerst geladen zijn voor je de JavaScript laadt, andersom zal JavaScript die $ verwijzing niet begrijpen.
-:::
+::: -->
 
 Het probleem van code in een browser is dat deze rechtlijnig werkt en nergens kan halthouden. Moest je via JavaScript code proberen te laten wachten op iets dan zou de browser denken dat de pagina blijft “hangen” en deze dus onderbreken.
 
 Om dus te kunnen wachten op iets moet je het anders aanpakken:
 
-* Via Callback (is een oude technologie)
 *	Via Promise (is iets nieuwer)
 *	Via Async en Await (is de nieuwste ontwikkeling)
-
-#### Een callback voorbeeld via JQuery
-
-```js
-$(document).ready(function(){
-    var data;
-    document.getElementById('get').addEventListener('click',getData);
-    function getData() {
-        $.get("https://httpbin.org/get?a=1",processData);
-    }
-    function processData(response)
-    {
-        document.getElementById('result').textContent=JSON.stringify(response.args);
-    }
-  });
-```
-
-`$.get(url, callback functie)`: De url zal dus bevraagd worden, pas als er antwoord komt zal de callback functie worden uitgevoerd.
-
-`Httpbin.org` is dummy server waar je de respons kunt meegeven en terugkrijgt, is om te testen
-
-Het grootste probleem hierbij is als je een callback functie in een andere callback functie gebruikt is error afhandeling bijzonder moeilijk.
 
 #### Een promise voorbeeld via fetch API
 
@@ -904,9 +881,9 @@ Je merkt dat via deze techniek de code veel leesbaarder lijkt.
 
 De functie zal bij elke Await de code verlaten en later op dat punt dan verder doen als de info beschikbaar is.
 
-::: danger ⛔Let op
+<!-- ::: danger ⛔Let op
 Deze techniek werkt niet bij oude browsers!
-:::
+::: -->
 
 ### Web API
 
