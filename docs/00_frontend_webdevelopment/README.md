@@ -705,48 +705,164 @@ Ter ondersteuning van deze leerstof raden we je aan om volgende bronnen te raadp
 * [Form validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
 * [HTML5 input types](https://developer.mozilla.org/en-US/docs/Learn/Forms/HTML5_input_types)
 
-### Form validatie via JavaScript
+### Client side vs Server side validatie
+Een formulier kan op meerdere plaatsen gevalideerd worden. Enerzijds kan dit gebeuren op de server. Bij het herladen van de pagina, zal er dan feedback komen voor de user. 
 
-We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. JavaScript en html.
+Anderzijds kan dit ook gevalideerd worden client side. Er is op de moment nog geen GET- of POST-request uitgevoerd naar de server.
+Client side validatie kan op 3 verschillende manier:
+- Via HTML
+- Via JavaScript bij het indienen van het formulier
+- Via JavaScript, wanneer je typt of een input-veld verlaat
+
+### Form validatie in HTML
+
+In HTML kan je attributen toevoegen die de clientside validatie voor zijn rekening zal nemen.
+
+Enkele voorbeelden zijn required, minLength, maxLength en type (text, number, date, email, ...).
+
+Een ander attribuut is pattern. Daarmee kan je via een reguliere expressie (Regex) nagaan of het patroon dat ingevuld is voldoet aan de verwachtingen. Je kan meer informatie hierover lezen op [mozilla developer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
+
+Een handige tool om die reguliere expressies te ontleden is [regexper](https://regexper.com/#%2F%5Ethis%5C.%2F). 
+
+Enkele voorbeelden:
+- Postcode Belië: ^[0-9]{4}$
+- Belgisch telefoonnummer: ^\+32[1-9][0-9]{7,8}$
+- E-mailadres: ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
+
+In HTML ziet dit er zo uit:
+```HTML
+<form action="/" method="post">
+    <div class="row mb-3">
+        <div class="col">
+            <label for="phone" class="form-label">Telefoonnummer</label>
+            <input type="tel" id="phone" name="phone" class="form-control" required minLength="2"
+                pattern="^\+32[1-9][0-9]{7,8}$">
+        </div>
+    </div>
+    <button type="submit">Opslaan</button>
+</form>
+```
+
+Voordelen:
+- Snel ontwikkeld
+- Eénduidige manier van implementatie
+
+Nadelen:
+- UI en logica zijn browserafhankelijk
+- Geen volledige controle over de UI
+- Geen volledige controle over de logica, bv. cultuur afhankelijke datum-validatie.
+
+### Form validatie via JavaScript bij indienen van het formulier
+
+We maken eerst een form waarvan we de validatie doen aan de client-side d.m.v. JavaScript en HTML.
 
 ![image](./images/afbeelding2.png)
 
-Je kan de files van dit voorbeeld [hier](/files/formvalidation.rar) downloaden.
+<!-- Je kan de files van dit voorbeeld [hier](/files/formvalidation.rar) downloaden. -->
+Met volgende HTML:
+```HTML
+<div class="container">
+  <div class="main">
+      <form action="confirm.html"  id="myForm">
+          <h2>Javascript Onsubmit Event Example</h2>
+          <span id="feedback"></span>
+          <label for="name">Name :</label>
+          <input id="name" name="name" placeholder="Name" type="text">
+          <label for="email">Email :</label>
+          <input id="email" name="email" placeholder="Valid Email" type="text">
+          <label for="gender">Gender :</label>
+          <input id="male" name="gender" type="radio" value="Male"><label>Male</label>
+          <input id="female" name="gender" type="radio" value="Female"><label>Female</label><br>
+          <label for="contact">Contact No. :</label>
+          <input id="contact" name="contact" placeholder="Contact No." type="text">
+          <input type="submit" value="Submit">
+          <span>All type of validation will execute on OnSubmit Event.</span>
+      </form>
+  </div>
+</div>
+<script src="script.js"></script>
+```
 
-We gebruiken hier geen HTML validatie, enkel JavaScript validatie.
-Laten we even kijken naar het script.
+Om het formulier te valideren kunnen we een event toevoegen die getriggerd wordt als je het formulier indient. We halen daarom ons form-element op in onze JavaScript code en voegen het submit event toe. Voorlopig laten we gewoon een `alert` zien als het formulier wordt ingediend. 
 
 ```js
+const formElement = document.getElementById("myForm");
+formElement.addEventListener("submit", validateForm);
+
+function validateForm() {
+  alert("Formulier wordt ingediend");
+}
+
+```
+
+Als je dit uitprobeert zie je dat de alert verschijnt wanneer je het indient, maar het formulier wordt wel ingediend. Dit kan je zien aan de url parameters die worden weergegeven. 
+
+```
+http://localhost:5501/confirm.html?name=Josip+weber&email=joske%40vives.be&contact=
+```
+
+Om te verhinderen dat het formulier wordt ingedien, kan je gebruik maken van de parameter event (of korter: e). Deze parameter bevat alle informatie rond het event. Naast informatie van het formulier,  bevat deze parameter een functie `preventDefault()` die zal zorgen dat het formulier niet wordt ingediend. Het formulier indienen via JavaScript kan je met de functie `submit()`.
+
+```js
+const formElement = document.getElementById("myForm");
+formElement.addEventListener("submit", validateForm);
+
+function validateForm(event) {
+  // wacht even met indienen
+  event.preventDefault();
+
+  // hier kunnen we kijken of alle input velden wel geldig zijn
+  // ...
+
+  // indien het formulier geldig is, kunnen we het indienen
+  formElement.submit();
+}
+```
+
+Laten we nu code toevoegen die zal nagaan of alle velden correct ingevuld zijn.
+
+```js
+// Reguliere expressie voor email
+const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 // Functie die uitgevoerd wordt bij een on submit
-function validationEvent() {
+function validateForm(event) {
+    event.preventDefault();
+    // feedback element ophalen
+    const feedbackElement = document.getElementById("feedback");
     // Input in variabelen bewaren
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let contact = document.getElementById("contact").value;
-    // Reguliere expressie voor email
-    let emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const name = document.getElementById("name").value; // of: formElement.name.value
+    const email = document.getElementById("email").value;
+    const contact = document.getElementById("contact").value;
+
     // Validatie testen
-    if (name != '' && email != '' && contact != '') {
-        if (email.match(emailReg)) {
-            if (document.getElementById("male").checked || document.getElementById("female").checked) {
-                if (contact.length >= 9 ) {
-                    return true;
-                } else {
-                    alert("The Contact No. must be at least 9 digit long!");
-                    return false;
-                }
-            } else {
-                alert("You must select gender.....!");
-                return false;
-            }
-        } else {
-            alert("Invalid Email Address...!!!");
-            return false;
-        }
-    } else {
-        alert("All fields are required.....!");
-        return false;
+
+    // zijn alle velden ingevuld
+    if (!name || !email || !contact) {
+        // dit is een verkorte schrijfwijze voor if(name == null || name == '' || email == null || ....)
+        feedbackElement.innerText = "Vul alle velden in.";
+        return; // met return verlaten we de functie, en dienen we het formulier niet in.
     }
+
+    // laat ons kijken of de email correct is ingevuld
+    if (!email.match(emailReg)) {
+        feedbackElement.innerText = "Vul een geldig e-mailadres in.";
+        return;
+    }
+
+    // Kijk of het geslacht is ingevuld
+    if (!document.getElementById("male").checked && !document.getElementById("female").checked) {
+        feedbackElement.innerText = "Selecteer een geslacht";
+        return;
+    }
+
+    // kijk of het contactnummer lang genoeg is.
+    if (contact.length >= 9) {
+        feedbackElement.innerText = "Het contact nummer moet minimum 9 tekens bevatten";
+        return;
+    }
+
+    formElement.submit();
 }
 ```
 
@@ -754,17 +870,108 @@ Je merkt dat we eerst alle input van de gebruiker gaan bewaren in variabelen. Da
 
 Om het email-adres te valideren maken we gebruik van een reguliere expressie.
 
-Je kan meer informatie hierover lezen op [mozilla developer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
+In dit voorbeeld werken we met een if structuur om alle input te valideren. Indien een input niet geldig is, maken we gebruik van return, waardoor de rest van de functie niet meer wordt uitgevoerd. Het formulier zal de laatste regel van de functie niet meer bereiken, die het formulier indient. 
 
-Een handige tool om die reguliere expressies te ontleden is [regexper](https://regexper.com/#%2F%5Ethis%5C.%2F).
+Als je met grotere formulieren werkt, is het aangewezen om met aparte functie na te gaan of een input-veld al dan niet geldig is. Deze functie zal dan een boolean teruggeven.
 
-In dit voorbeeld werken we met een geneste if structuur om alle input te valideren. Als je meer inputvelden moet valideren is het aangewezen om via een boolean variabele te werken die bijhoud of de volledige form valid of niet is.
+### Form elementen direct valideren
+Als je hele grote formulieren hebt, kan het irritant zijn voor je gebruiker dat je pas feedback hebt nadat je op de submit knop hebt gedrukt. Een good practice om de kleur van de border dan groen te kleuren als het input-veld ok is, of rood als er nog aanpassingen nodig zijn. Verder kan er een foutmelding verschijnen, zodat de gebruiker weet wat van hem verwacht wordt.
 
-Je merkt ook dat telkens iets niet valid is er een false wordt retourneert, moesten we dit niet doen zou de pagina gewoon refreshen.
+We zullen gebruik maken van de bootstrap css library, zodat we enkel kunnen spelen met het toevoegen of verwijderen van een klasse om tot een goed resultaat te komen. Oplossingen kunnen dus verschillen bij het gebruik van een andere css library. Lees daarvoor steeds goed de documentatie door. 
 
-::: warning Let op:
-In dit voorbeeld maken we gebruik van de `alert` functie om feedback te geven aan de gebruiker. Dit omdat we alleen de structuur van validatie willen aantonen. Het is echter nooit een goed idee om `alert` te gebruiken, het wordt immers als storend ervaren door de gebruiker. Je kan de feedback via kleur aanduiding en/of foutmeldingen in je form duidelijk maken.
-:::
+Laat ons starten met volgende HTML
+
+```HTML
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="container mt-5">
+    <form action="https://formtester.goodbytes.be/post.php" method="post" class="p-4 border rounded">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" id="email" name="email" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary" id="btnSubmit">Sign Up</button>
+    </form>
+</div>
+<script src="script.js"></script>
+```
+
+In het vorige hoofdstuk maakten we gebruik van het submit event. Nu zullen we gebruik maken van het input event op het input element. 
+
+```js
+const emailInput = document.getElementById("email");
+
+emailInput.addEventListener("input", validateInput);
+
+function validateInput() {
+  console.log("validating");
+}
+```
+
+Als je deze code uitvoert zal je zien dat er een console.log komt voor iedere toets die je indrukt. Een andere mogelijkheid is om het `change`-event te gebruiken. Hierdoor wordt er enkel gevalideerd als je het element verlaat en de waarde is veranderd. 
+
+Laten we nu de logica toevoegen om het element te valideren en feedback te geven aan de gebruiker.
+
+```js
+const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+const emailInput = document.getElementById("email");
+emailInput.addEventListener("input", validateInput);
+
+function validateInput() {
+    const email = emailInput.value;
+
+    if (!email.match(emailReg)) {
+        this.classList.add("is-invalid");
+        this.classList.remove("is-valid");
+    }
+    else {
+        this.classList.remove("is-invalid");
+        this.classList.add("is-valid");
+    }
+}
+```
+
+Als de email niet geldig is, dan voegen we een klasse is-invalid toe aan het element. Het element wordt hier benaderd door het keyword `this`. Dit is hetzelfde als zouden we gebruik maken van `emailInput.classList.remove()`.
+
+Je ziet dat we ook telkens de andere klasse verwijderen. Dit komt doordat een input veld kan veranderen van ongeldig naar geldig, of van geldig naar ongeldig.
+
+We kunnen er ook voor zorgen dat het formulier niet kan worden ingediend door de submit button te disablen. Je JavaScript file ziet er dan zo uit:
+```js
+const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+const emailInput = document.getElementById("email");
+emailInput.addEventListener("input", validateInput);
+
+const submitButton = document.getElementById("btnSubmit");
+
+function validateInput() {
+    console.log("validating");
+    const email = emailInput.value;
+
+    if (email.match(emailReg) == null) {
+        submitButton.disabled = true;
+
+        this.classList.add("is-invalid");
+        this.classList.remove("is-valid");
+    }
+    else {
+        submitButton.disabled = false;
+
+        this.classList.remove("is-invalid");
+        this.classList.add("is-valid");
+    }
+}
+```
+
+We kunnen er ook nog feedback aan meegeven, pas de HTML aan. Deze werkwijze is afhankelijk van de gebruikte css-library.
+
+```HTML
+<div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" id="email" name="email" class="form-control" >
+    <div class="invalid-feedback">Geef een geldig e-mailadres op</div>
+</div>
+```
 
 ### Oefening
 
