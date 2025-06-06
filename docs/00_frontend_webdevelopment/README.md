@@ -1115,12 +1115,12 @@ Als je bovenstaande code uitprobeert, zal je zien dat er in je console eerst `no
 
 De code die onder de fetch staat loopt dus gewoon door. De functie die we meegeven met `then()` wordt pas uitgevoerd als we het antwoord van de url terugkrijgen. 
 
-Laat ons dit even wat dieper bekijken.
+Laat ons dit even wat dieper bekijken. Open je inspector en bekijk de network tab.
 
-Open je inspector en bekijk de network tab.
 ![network tab](images/network-tab.png)
 
 Als je op de url klikt, zal je meer details krijgen over de http-request die verstuurd is. 
+
 ![preview tab](images/preview-tab.png)
 
 We proberen nu de inhoud te achterhalen, pas je script aan zodat je de volledig response logt naar de console.
