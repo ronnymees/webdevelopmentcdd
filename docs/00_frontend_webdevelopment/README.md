@@ -1117,11 +1117,11 @@ De code die onder de fetch staat loopt dus gewoon door. De functie die we meegev
 
 Laat ons dit even wat dieper bekijken. Open je inspector en bekijk de network tab.
 
-![network tab](images/network-tab.png)
+![network tab](./images/network-tab.png)
 
 Als je op de url klikt, zal je meer details krijgen over de http-request die verstuurd is. 
 
-![preview tab](images/preview-tab.png)
+![preview tab](./images/preview-tab.png)
 
 We proberen nu de inhoud te achterhalen, pas je script aan zodat je de volledig response logt naar de console.
 ```js
@@ -1137,7 +1137,7 @@ function init() {
 
 ```
 Als je de console bekijkt, kan je zien dat de data aanwezig zit in de body-eigenschap van de Response. Dit is echter een ReadableStream (= een opvolging van 0tjes en 1tjes). 
-![response body](images/response-body.png)
+![response body](./images/response-body.png)
 
 We kunnen dit omzetten met de functie json() of text(). De json() functie zal de json-text onmiddelijk omzetten naar een JavaScript-object, waardoor we direct aan de data kunnen. Het nadeel is dat deze functies opnieuw een promise teruggeven. We kunnen pas aan onze data via de then() functie.
 
@@ -1176,7 +1176,7 @@ async function getData() {
 Je merkt dat via deze techniek de code veel leesbaarder maakt. Maar welke stappen dien je nu te ondernemen om dit te doen?
 
 #### 1. Voeg async toe voor de functie
-![async function](images/async-function.png)
+![async function](./images/async-function.png)
 #### 2. Voeg await toe voor de functie die een promise teruggeeft
 ```js
 async function loadData() {
