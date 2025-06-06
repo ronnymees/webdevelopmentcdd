@@ -983,13 +983,40 @@ Maak de oefening op het elektronisch leerplatform en laad die op.
 
 ## Week 6 - Gebruik maken van Web-API's in JavaScript
 
+### Web API
+
+Een **A**pplication **P**rogramming **I**nterface is een software service dat een set aan functies online beschikbaar stelt voor anderen.
+
+Zoals bv:
+* lezen en opzoeken van data
+* weer service
+* het updaten van content
+* authenticatie
+* complexe berekeningen
+* comprimeren of converteren van afbeeldingen
+
+Een **web-api** is een api die gegevens ter beschikking stelt via het internet, of url’s. Via deze url’s kunnen we data uitlezen en/of aanpassen. 
+
+Het vinden van een API kan lastig zijn. Alle grote web applicaties zoals Youtube, Google Maps, Dropbox, Twitter, ... hebben er een, maar er zijn ook ontelbare kleine specifieke API's die je ofwel doorkrijgt van een fabrikant of eventueel kan opzoeken via [rapidapi.com](https://rapidapi.com/marketplace).
+
+::: danger ⛔Let op
+Niet alle API's zijn zomaar gratis!
+:::
+
 ### JavaScript Object Notation (JSON)
 
 ![image](./images/jsonicon.png) 
 
-JSON is een formaat om op eenvoudige en compacte manier data te kunnen uitwisselen. Er zijn 2 structuren, objecten te herkennen aan {} en array’s te herkennen aan [].
+HTML, Css en Javascript-bestanden worden opgeslagen op de server. Als je naar een url surft, dan wordt deze bestanden gedownload en weergegeven in je browser. HTML zal de structuur van je pagina bepalen, css de opmaak en JavaScript zal er voor zorgen dat je pagina levend wordt. 
 
-![image](./images/afbeelding3.png)
+We hebben echter nog geen formaat om data door te geven. Dit zullen we doen aan de hand van JSON-bestanden. JSON staat voor JavaScript Object Notation. Het is niet het enige formaat, maar tegenwoordig wel het meest gebruikte. Daarnaast kan je bijvoorbeeld ook data uitwisselen via XML (lijkt op HTMl, maar dan voor data).
+
+JSON is een formaat (=TEKST) om op eenvoudige en compacte manier data te kunnen uitwisselen. Het lijkt enorm op een JavaScript-object, maar met enkele verschillen:
+- Name van properties staan tussen dubbele quotes
+- Voor tekst is het gebruik van enkele quotes niet toegestaan. Dit moet tussen dubbele quotes. 
+- Je kan geen gebruik maken van commentaar.
+
+Datatypes zoals string, boolean en number zijn ook bruikbaar in JSON. Een array kan worden toegevoegd door gebruik te maken van de vierkante haken: [].
 
 ```json
 {
@@ -1031,12 +1058,12 @@ console.log(JSON.stringify({ x: 5, y: 6 }));
 * Maak er terug een JSON string van en log dit eveneens naar de console.
 :::
 
-### Asynchronous JavaScript And XML (AJAX)
+### API-call in JavaScript via een Promise
 
-AJAX is een techniek om je webpagina te updaten zonder dat de volledige pagina opnieuw moet worden geladen.
+<!-- AJAX is een techniek om je webpagina te updaten zonder dat de volledige pagina opnieuw moet worden geladen.
 Het is Google die deze techniek heeft geïntroduceerd in hun zoekmachine (als je in google iets begint te type worden suggesties gegeven).
 
-![image](./images/afbeelding4.gif)
+![image](./images/afbeelding4.gif) -->
 
 <!-- Aanvankelijk werd hiervoor HTMLXMLRequest gebruikt, het grote nadeel was dat je voor elke browser een andere code nodig had.
 Enige tijd late werd **JQuery** ontwikkeld waarmee je uniforme code kon schrijven en JQuery ging in de achtergrond dan het probleem van de verschillende browsers aanpakken.
@@ -1051,64 +1078,144 @@ Onthou vooral dat als je **een $-teken** in JavaScript ziet staan dan heb je te 
 Jquery moet eerst geladen zijn voor je de JavaScript laadt, andersom zal JavaScript die $ verwijzing niet begrijpen.
 ::: -->
 
-Het probleem van code in een browser is dat deze rechtlijnig werkt en nergens kan halthouden. Moest je via JavaScript code proberen te laten wachten op iets dan zou de browser denken dat de pagina blijft “hangen” en deze dus onderbreken.
 
-Om dus te kunnen wachten op iets moet je het anders aanpakken:
+Om een API-call te maken in JavaScript kan je gebruik maken van de `fetch()`-functie in JavaScript. Je geeft daarbij de url mee van het json-bestand dat je wil afhalen. 
 
-*	Via Promise (is iets nieuwer)
-*	Via Async en Await (is de nieuwste ontwikkeling)
+Bijvoorbeeld:
+```js
+window.addEventListener("DOMContentLoaded", init);
+function init() {
+  console.log("alle dom-elementen geladen");
+  fetch("https://api.chucknorris.io/jokes/random")
+    .then(function(response) {
+      console.log(response.status, response.statusText);
+    });
+}
 
-#### Een promise voorbeeld via fetch API
+```
+
+We halen hier een mop af van de berucht Chuck Norris. Deze url zal ons bij iedere request een andere mop doorsturen, wat het ideaal maakt om te testen. 
+
+De fetch-functie geeft echter niet direct het resultaat terug. Deze geeft een promise terug. Het resultaat kunnen we bekijken door een functie toe te voegen die als parameter het resultaat ontvangt. 
+
+Je kan deze functie ook korter schrijven met de arrow-notatie:
+```js
+window.addEventListener("DOMContentLoaded", init);
+function init() {
+  console.log("alle dom-elementen geladen");
+  fetch("https://api.chucknorris.io/jokes/random")
+    .then((response)  => { // function wordt weggelaten en vervangen door een pijl na de parameters
+      console.log(response.status, response.statusText);
+    });
+  console.log("nog wat code");
+}
+
+```
+Als je bovenstaande code uitprobeert, zal je zien dat er in je console eerst `nog wat code` te zien krijgt en nadien komt `200 ""` te voorschijn. 
+
+De code die onder de fetch staat loopt dus gewoon door. De functie die we meegeven met `then()` wordt pas uitgevoerd als we het antwoord van de url terugkrijgen. 
+
+Laat ons dit even wat dieper bekijken.
+
+Open je inspector en bekijk de network tab.
+![network tab](images/network-tab.png)
+
+Als je op de url klikt, zal je meer details krijgen over de http-request die verstuurd is. 
+![preview tab](images/preview-tab.png)
+
+We proberen nu de inhoud te achterhalen, pas je script aan zodat je de volledig response logt naar de console.
+```js
+window.addEventListener("DOMContentLoaded", init);
+function init() {
+  console.log("alle dom-elementen geladen");
+  fetch("https://api.chucknorris.io/jokes/random")
+    .then((response)  => { 
+      console.log(response); // log volledige response
+    });
+  console.log("nog wat code");
+}
+
+```
+Als je de console bekijkt, kan je zien dat de data aanwezig zit in de body-eigenschap van de Response. Dit is echter een ReadableStream (= een opvolging van 0tjes en 1tjes). 
+![response body](images/response-body.png)
+
+We kunnen dit omzetten met de functie json() of text(). De json() functie zal de json-text onmiddelijk omzetten naar een JavaScript-object, waardoor we direct aan de data kunnen. Het nadeel is dat deze functies opnieuw een promise teruggeven. We kunnen pas aan onze data via de then() functie.
+
+```js
+function init() {
+    console.log("alle dom-elementen geladen");
+    fetch("https://api.chucknorris.io/jokes/random")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+        });
+}
+```
+Nu zou je de data moeten te voorschijn zien komen in de console. Verander data naar data.value eens in de console.log en kijk eens wat er gebeurt?
+
+
+### API-call in JavaScript via een asynchrone functie
+
+Je merkt dat werken met promises de code omslachtig maakt. Nu maken we 1 api-call, maar stel je voor dat we afhankelijk van 1 api-call direct een andere api-call moeten uitvoeren. De code kan hierdoor onnodig complex worden. 
+
+We kunnen daarom gebruik maken van async/await. Achterliggend gebeurt er echter juist hetzelfde. Dit is juist een andere manier van schrijven.
 
 ```js
 document.getElementById('get').addEventListener('click', getData);
-function getData() {
-    fetch("https://httpbin.org/get?a=1").then(response => response.json()).
-    then(response => { document.getElementById('result').textContent=
-		JSON.stringify(response.args);  });
+
+async function getData() {
+    const response = await fetch("https://api.chucknorris.io/jokes/random");
+    
+    const data = await response.json();
+    document.getElementById('result').textContent = JSON.stringify(data.value);
 };
 ```
-De fetch API is ingebouwd in de browser en werkt via promises. Op het einde van een ketting van `.then()` is er een `.catch()` om de errorafhandeling te doen.
 
-De response komt al vanaf de eerste data die de server teruggestuurd, daarom moeten we `response.json()` gebruiken om alle response te verzamelen.
+Je merkt dat via deze techniek de code veel leesbaarder maakt. Maar welke stappen dien je nu te ondernemen om dit te doen?
 
-#### Een async/await voorbeeld
-
+#### 1. Voeg async toe voor de functie
+![async function](images/async-function.png)
+#### 2. Voeg await toe voor de functie die een promise teruggeeft
 ```js
-document.getElementById('get').addEventListener('click', getData);
- async function getData() {
-    let response = await fetch("https://httpbin.org/get?a=1");
-    let json = await response.json();
-    document.getElementById('result').textContent=
-            JSON.stringify(json.args);
-};
-```
+async function loadData() {
+    const response = await fetch("https://api.chucknorris.io/jokes/random");
 
-Je merkt dat via deze techniek de code veel leesbaarder lijkt.
+    const data = await response.json();
+}
+```
+#### 3. Asynchrone functie aanroepen
+De functie die we aangemaakt hebben, moeten we nu ook aanroepen met await.
+
+Dit wordt dus:
+```js
+window.addEventListener("DOMContentLoaded", init);
+
+async function init() {
+  console.log("alle dom-elementen geladen");
+  
+  await loadData();
+  console.log("nog wat code");
+}
+
+async function loadData() {
+    const response = await fetch("https://api.chucknorris.io/jokes/random");
+
+    const data = await response.json();
+    console.log(data.value)
+}
+``` 
+Zoals je kan zien moeten we daarbij onze init-functie ook async maken. De init functie in de addEventListener kunnen we ongemoeid laten.
 
 De functie zal bij elke Await de code verlaten en later op dat punt dan verder doen als de info beschikbaar is.
 
-<!-- ::: danger ⛔Let op
-Deze techniek werkt niet bij oude browsers!
-::: -->
-
-### Web API
-
-Een **A**pplication **P**rogramming **I**nterface is een software service dat een set aan functies online beschikbaar stelt voor anderen.
-
-Zoals bv:
-* lezen en opzoeken van data
-* weer service
-* het updaten van content
-* autentificatie
-* complexe berekeningen
-* comprimeren of converteren van afbeeldingen
-
-Het vinden van een API kan lastig zijn. Alle grote web applicaties zoals Youtube, Google Maps, Dropbox, Twitter, ... hebben er een, maar er zijn ook ontelbare kleine specifieke API's die je ofwel doorkrijgt van een fabrikant of eventueel kan opzoeken via [rapidapi.com](https://rapidapi.com/marketplace).
-
-::: danger ⛔Let op
-Niet alle API's zijn zomaar gratis!
+::: danger 
+⛔Let op
+Doordat we await enkele in asynchrone functies kunnen aanroepen, kunnen we dit zomaar in de root van ons script gebruiken. Maak dus gebruik van het DOMContentLoaded event.
 :::
+
+
 
 ### Oefening
 
